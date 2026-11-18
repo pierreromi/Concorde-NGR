@@ -1,0 +1,32 @@
+# acf_patch.txt - genere par outils\generer_installeur_acf.py - NE PAS MODIFIER A LA MAIN
+# O = MD5 de l'ACF original Colimata ; H = MD5 attendu apres installation (CRLF)
+# M = cle dont la valeur change ; T = ligne du bloc tablette (objet _obja/<N>/, N = valeur de _obja/count)
+O 2a219391158d87e35bd5304b46c69254
+H 053667bf44f98c164c69212f1ce25b78
+M _body/0/_part_area_rule 0.300000000
+M _body/1/_part_area_rule 0.300000000
+M _wing/0/_afl_file_1 CONCORDE_DELTA1_NGR_V5.afl
+M _wing/0/_afl_file_2 CONCORDE_DELTA1_NGR_V5.afl
+M _wing/0/_afl_file_3 CONCORDE_DELTA1_NGR_V5.afl
+M _wing/1/_afl_file_1 CONCORDE_DELTA1_NGR_V5.afl
+M _wing/1/_afl_file_2 CONCORDE_DELTA1_NGR_V5.afl
+M _wing/1/_afl_file_3 CONCORDE_DELTA1_NGR_V5.afl
+M _wing/2/_afl_file_1 CONCORDE_DELTA2_NGR_V5.afl
+M _wing/2/_afl_file_2 CONCORDE_DELTA2_NGR_V5.afl
+M _wing/2/_afl_file_3 CONCORDE_DELTA2_NGR_V5.afl
+M _wing/3/_afl_file_1 CONCORDE_DELTA2_NGR_V5.afl
+M _wing/3/_afl_file_2 CONCORDE_DELTA2_NGR_V5.afl
+M _wing/3/_afl_file_3 CONCORDE_DELTA2_NGR_V5.afl
+T _obj_flags 13
+T _v10_att_body -1
+T _v10_att_file_stl cockpit_v200/ngb_mcdu_cadre.obj
+T _v10_att_gear -1
+T _v10_att_phi_ref 0.000000000
+T _v10_att_psi_ref 0.000000000
+T _v10_att_the_ref 0.000000000
+T _v10_att_wing -1
+T _v10_att_x_acf_prt_ref 0.000000000
+T _v10_att_y_acf_prt_ref 0.000000000
+T _v10_att_z_acf_prt_ref 0.000000000
+T _v10_is_internal 5125
+T _v10_steers_with_gear 0

@@ -1,0 +1,50 @@
+CONCORDE MCDU NGB - LICENCE
+
+Auteur : pierre.r
+
+Licence : Creative Commons Attribution - Pas d'Utilisation Commerciale 4.0 International
+(CC BY-NC 4.0)
+Texte complet : https://creativecommons.org/licenses/by-nc/4.0/legalcode
+Version résumée : https://creativecommons.org/licenses/by-nc/4.0/deed.fr
+
+Vous êtes libre de :
+  - Partager : copier et redistribuer le matériel sous quelque format que ce soit.
+  - Adapter : remixer, transformer et créer à partir du matériel.
+
+Selon les conditions suivantes :
+  - Attribution : vous devez citer l'auteur (pierre.r), indiquer la licence et les modifications éventuelles.
+  - Pas d'Utilisation Commerciale : vous ne pouvez pas utiliser le matériel à des fins commerciales.
+
+Aucune garantie. Le logiciel est fourni en l'état, sans garantie d'aucune sorte.
+Pour un usage commercial, contacter l'auteur (pierre.r).
+
+Exception - profils d'aile CONCORDE_DELTA1_NGR_V5 et CONCORDE_DELTA2_NGR_V5 :
+creation Concorde NGR (Pierre Romi), sous licence Creative Commons Attribution 4.0 (CC BY 4.0).
+Reutilisation libre, y compris dans un add-on payant, a condition de citer "Concorde NGR - Pierre Romi".
+Texte complet : https://creativecommons.org/licenses/by/4.0/legalcode
+
+-----------------------------------------------------------------------
+
+CONCORDE MCDU NGB - LICENSE
+
+Author: pierre.r
+
+License: Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
+Full legal text: https://creativecommons.org/licenses/by-nc/4.0/legalcode
+Human-readable summary: https://creativecommons.org/licenses/by-nc/4.0/
+
+You are free to:
+  - Share: copy and redistribute the material in any medium or format.
+  - Adapt: remix, transform, and build upon the material.
+
+Under the following terms:
+  - Attribution: you must credit the author (pierre.r), provide a link to the license, and indicate any changes made.
+  - NonCommercial: you may not use the material for commercial purposes.
+
+No warranty. The software is provided "as is", without warranty of any kind.
+For commercial use, contact the author (pierre.r).
+
+Exception - airfoils CONCORDE_DELTA1_NGR_V5 and CONCORDE_DELTA2_NGR_V5:
+a Concorde NGR creation (Pierre Romi), licensed under Creative Commons Attribution 4.0 (CC BY 4.0).
+Free to reuse, including in a payware add-on, provided you credit "Concorde NGR - Pierre Romi".
+Full legal text: https://creativecommons.org/licenses/by/4.0/legalcode

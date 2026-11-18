@@ -1,0 +1,95 @@
+CONCORDE NGR - LIST OF CHANGES MADE BY installer.bat
+========================================================================
+Aircraft: Colimata Concorde FXP (X-Plane 12), file CONCORDE_FXP.acf
+Reference original ACF: MD5 2a219391158d87e35bd5304b46c69254
+
+1. WHAT THE .BAT DOES
+  - Checks that X-Plane is closed, finds X-Plane 12 and CONCORDE_FXP.acf.
+  - Backs up CONCORDE_FXP.acf as CONCORDE_FXP.acf.originalconcorde (once, never overwritten).
+  - Copies the files below (section 2). An existing different file is backed up as .originalconcorde.
+  - Changes the ACF lines below (section 3). Nothing else in the ACF is touched.
+  - The ACF file is rewritten with Windows line endings (CRLF): no effect for X-Plane.
+  - Adds the MCDU screen to CONCORDE_FXP_cockpit.obj (options 1 and 2): 4 vertices, 6 indices, one 12-line block,
+    POINT_COUNTS +4 / +6 (data: ecran_cockpit.txt). Backup CONCORDE_FXP_cockpit.obj.originalconcorde.
+    The screen must be in the cockpit object: X-Plane only sends clicks to the plugin for that object.
+  - Records what it did in CONCORDE_FXP\ngr_installe.txt (used for uninstall).
+  - Offers (yes/no) to copy the Concorde_NGR plugin into X-Plane 12\Resources\plugins\.
+
+  Menu: 1 automatic install (exact original ACF only)
+         2 force key by key (other ACF version or already modified; missing lines are reported)
+         3 copy the files only, the ACF is edited BY HAND with this list
+         4 uninstall (restores the .originalconcorde ACF and cockpit, removes added files, plugin optional)
+
+2. FILES COPIED INTO THE AIRCRAFT FOLDER (CONCORDE_FXP\)
+  objects\cockpit_v200\ngb_mcdu_cadre.obj   3D frame of the MCDU tablet (the screen is added to the cockpit)
+  airfoils\CONCORDE_DELTA1_NGR_V5.afl        wing airfoil declared in the ACF
+  airfoils\CONCORDE_DELTA2_NGR_V5.afl        wing airfoil declared in the ACF
+  Plugin (if accepted): X-Plane 12\Resources\plugins\Concorde_NGR\ (whole folder).
+
+3. CONCORDE_FXP.acf LINES CHANGED (15) AND ADDED (13)
+  Line = number in the original ACF. Format: key   old value  ->  new value
+  -- Wing airfoils
+   11600  P _wing/0/_afl_file_1                CONCORDE_DELTA1.afl  ->  CONCORDE_DELTA1_NGR_V5.afl
+   11601  P _wing/0/_afl_file_2                CONCORDE_DELTA1.afl  ->  CONCORDE_DELTA1_NGR_V5.afl
+   11602  P _wing/0/_afl_file_3                CONCORDE_DELTA1.afl  ->  CONCORDE_DELTA1_NGR_V5.afl
+   13403  P _wing/1/_afl_file_1                CONCORDE_DELTA1.afl  ->  CONCORDE_DELTA1_NGR_V5.afl
+   13404  P _wing/1/_afl_file_2                CONCORDE_DELTA1.afl  ->  CONCORDE_DELTA1_NGR_V5.afl
+   13405  P _wing/1/_afl_file_3                CONCORDE_DELTA1.afl  ->  CONCORDE_DELTA1_NGR_V5.afl
+   20615  P _wing/2/_afl_file_1                CONCORDE_DELTA2.afl  ->  CONCORDE_DELTA2_NGR_V5.afl
+   20616  P _wing/2/_afl_file_2                CONCORDE_DELTA2.afl  ->  CONCORDE_DELTA2_NGR_V5.afl
+   20617  P _wing/2/_afl_file_3                CONCORDE_DELTA2.afl  ->  CONCORDE_DELTA2_NGR_V5.afl
+   22418  P _wing/3/_afl_file_1                CONCORDE_DELTA2.afl  ->  CONCORDE_DELTA2_NGR_V5.afl
+   22419  P _wing/3/_afl_file_2                CONCORDE_DELTA2.afl  ->  CONCORDE_DELTA2_NGR_V5.afl
+   22420  P _wing/3/_afl_file_3                CONCORDE_DELTA2.afl  ->  CONCORDE_DELTA2_NGR_V5.afl
+  -- Fuselage area rule
+    8671  P _body/0/_part_area_rule            0.949999988  ->  0.300000000
+   10142  P _body/1/_part_area_rule            1.000000000  ->  0.300000000
+  -- 3D tablet: object counter
+   10962  P _obja/count                        44  ->  45
+  -- 3D tablet: 13 lines ADDED right after the last "P _obja/43/..." line (line 10896 of the original)
+          P _obja/44/_obj_flags 13
+          P _obja/44/_v10_att_body -1
+          P _obja/44/_v10_att_file_stl cockpit_v200/ngb_mcdu_cadre.obj
+          P _obja/44/_v10_att_gear -1
+          P _obja/44/_v10_att_phi_ref 0.000000000
+          P _obja/44/_v10_att_psi_ref 0.000000000
+          P _obja/44/_v10_att_the_ref 0.000000000
+          P _obja/44/_v10_att_wing -1
+          P _obja/44/_v10_att_x_acf_prt_ref 0.000000000
+          P _obja/44/_v10_att_y_acf_prt_ref 0.000000000
+          P _obja/44/_v10_att_z_acf_prt_ref 0.000000000
+          P _obja/44/_v10_is_internal 5125
+          P _obja/44/_v10_steers_with_gear 0
+
+4. DOING IT BY HAND (option 3)
+  a. Close X-Plane. Copy CONCORDE_FXP.acf to CONCORDE_FXP.acf.originalconcorde (backup).
+  b. Open CONCORDE_FXP.acf with a text editor (Notepad, Notepad++).
+  c. For each line of section 3: search "P key " and replace the value.
+  d. Tablet: read the value of "P _obja/count" (N, 44 in the original). Add the 13 block lines
+     replacing 44 with N, after the last "P _obja/N-1/..." line, then set "P _obja/count" to N+1.
+  e. Save. Copy the files of section 2 (CONCORDE_FXP folder of the package).
+  f. Screen: copy CONCORDE_FXP_cockpit.obj to .originalconcorde, then with installer\ecran_cockpit.txt:
+     V lines after the last VT; 6 IDX lines N,N+1,N+2,N,N+2,N+3 (N = first POINT_COUNTS number) after the last IDX;
+     A lines, then "TRIS I 6" (I = last POINT_COUNTS number), then B lines, after the last ANIM_end;
+     finally POINT_COUNTS: N+4 and I+6.
+  To undo: put the .originalconcorde files (ACF and cockpit) back in place.
+
+5. OPTION: NGR AUTOPILOT (installer_pilote_auto.bat)
+  Optional. Changes 10 acf/_ott_* lines (autopilot settings), still being improved.
+  Run installer_pilote_auto.bat AFTER installer.bat (otherwise installer.bat mode 1 refuses: different MD5;
+  then use its mode 2).
+  Menu: 1 Install  2 Uninstall  3 State  0 Quit. X-Plane must be closed.
+  Install: backup CONCORDE_FXP.acf.avant_pa_ngr, previous values saved in pa_ngr_restauration.txt (next to the ACF).
+  Uninstall: puts back the SAVED values (those of your ACF before the option, mods included), not necessarily Colimata's.
+  Key                                  Original      NGR
+  acf/_ott_asi_kts_off_for_full_def    50            60
+  acf/_ott_asi_thro_per_sec            0.400000006   0.150000006
+  acf/_ott_phi_deg_off_for_full_def    13            16.100000381
+  acf/_ott_phi_sec_into_future         5.400000095   6.400000095
+  acf/_ott_phi_sec_to_tune             4             13
+  acf/_ott_roll_rate                   6.900000095   5.900000095
+  acf/_ott_roll_response               8.699999809   6.699999809
+  acf/_ott_the_deg_off_for_full_def    15            18
+  acf/_ott_the_deg_per_kt              0.010000000   0.009999999
+  acf/_ott_the_sec_into_future         5.400000095   6.000000000
+  By hand (Plane Maker or text editor): replace the value of these 10 "P key value" lines.

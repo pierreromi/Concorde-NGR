@@ -1,0 +1,17 @@
+# ecran_cockpit.txt - ecran MCDU ajoute dans CONCORDE_FXP_cockpit.obj par installer.bat - NE PAS MODIFIER A LA MAIN
+# V = sommet ajoute apres le dernier VT ; IDX generes (N,N+1,N+2,N,N+2,N+3) ; A = avant la ligne TRIS, B = apres
+V VT	-0.1288	0.8046	6.8223	-0.0000	0.1935	0.9811	0.04883	0.48828
+V VT	-0.1288	1.1394	6.7563	-0.0000	0.1935	0.9811	0.04883	0.93945
+V VT	0.1274	1.1394	6.7563	-0.0000	0.1935	0.9811	0.39063	0.93945
+V VT	0.1274	0.8046	6.8223	-0.0000	0.1935	0.9811	0.39063	0.48828
+A 	# NGB : ecran MCDU plugin concorde_mcdu_ngb (zone panneau 100/1000, 700x924)
+A 	ANIM_begin
+A 	ANIM_hide	0	0	ngb/mcdu/panel_enabled
+A 	ANIM_hide	2	1000	ngb/mcdu/panel_enabled
+A 	ANIM_show	1	1	ngb/mcdu/panel_enabled
+A 	ATTR_manip_none
+A 	ATTR_no_cull
+A 	ATTR_cockpit_region	
+A 	ATTR_cockpit
+B 	ATTR_cull
+B 	ANIM_end

@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concorde NGR - Manual</title>
+<!--
+  CONCORDE NGR USER MANUAL — ENGLISH (same SECTION markers as NOTICE_FR.html)
+  MISE A JOUR : chaque section est encadree par <!- - SECTION: NOM - -> ... <!- - FIN: NOM - ->.
+  Les memes reperes existent dans NOTICE_EN.html : modifier la section touchee dans les DEUX fichiers,
+  changer la VERSION (en-tete + pied) et ajouter une ligne a l'HISTORIQUE (fin du fichier).
+  Captures : dossier images\, nommees capture_<page>.png (une capture = un fichier ; remplacer le fichier suffit).
+-->
+<style>
+  :root{ --bg:#0c1117; --panel:#131b24; --line:#243041; --txt:#e6edf5; --dim:#8c9bb0; --g:#3ddc84; --b:#4fc3f7; --m:#ff4fd8; --o:#ffb020; --w:#ffffff; --acc:#4fc3f7; }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; background:var(--bg); color:var(--txt); font:16px/1.55 system-ui,"Segoe UI",Roboto,Arial,sans-serif; }
+  body{ padding:0 16px 60px; }
+  header{ max-width:980px; margin:0 auto; padding:28px 0 12px; border-bottom:1px solid var(--line); }
+  h1{ margin:0 0 6px; font-size:28px; letter-spacing:.3px; }
+  h1 span{ color:var(--acc); }
+  .lang{ display:inline-flex; gap:8px; margin-top:8px; }
+  .lang a{ color:var(--dim); text-decoration:none; border:1px solid var(--line); padding:4px 10px; border-radius:6px; font-size:14px; }
+  .lang a.on{ color:var(--bg); background:var(--acc); border-color:var(--acc); }
+  nav.toc{ max-width:980px; margin:14px auto 0; display:flex; flex-wrap:wrap; gap:8px; }
+  nav.toc a{ color:var(--dim); text-decoration:none; font-size:14px; border:1px solid var(--line); padding:4px 10px; border-radius:20px; }
+  nav.toc a:hover{ color:var(--txt); border-color:var(--acc); }
+  main{ max-width:980px; margin:0 auto; }
+  section{ padding:26px 0 8px; border-bottom:1px solid var(--line); }
+  h2{ font-size:22px; margin:0 0 12px; color:var(--acc); }
+  h3{ font-size:17px; margin:18px 0 6px; }
+  .muted{ color:var(--dim); font-size:14px; }
+  .steps{ counter-reset:s; list-style:none; padding:0; margin:0; display:grid; gap:10px; }
+  .steps li{ counter-increment:s; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px 12px 56px; position:relative; }
+  .steps li::before{ content:counter(s); position:absolute; left:14px; top:12px; width:28px; height:28px; border-radius:50%; background:var(--acc); color:var(--bg); font-weight:700; display:flex; align-items:center; justify-content:center; }
+  .box{ background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:12px 0; }
+  .warn{ border-color:#5a4316; background:#1d1709; }
+  .ok{ border-color:#1d4a33; background:#0f1d16; }
+  code,kbd{ font:13px/1.4 Consolas,"Courier New",monospace; background:#0a0e13; border:1px solid var(--line); border-radius:4px; padding:1px 5px; color:var(--w); }
+  table{ width:100%; border-collapse:collapse; font-size:15px; }
+  th,td{ text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th{ color:var(--dim); font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:.4px; }
+  figure{ margin:14px 0; }
+  figure img{ display:block; max-width:420px; width:100%; height:auto; margin:0 auto; border:1px solid var(--line); border-radius:10px; }
+  figcaption{ color:var(--dim); font-size:13px; margin-top:6px; text-align:center; }
+  .page{ display:grid; gap:18px; grid-template-columns:minmax(0,1fr) minmax(0,420px); align-items:start; }
+  .todo{ color:var(--o); font-style:italic; }
+  @media (max-width:760px){ .page{ grid-template-columns:1fr; } }
+  @media (max-width:560px){ body{ padding:0 14px 50px; } h1{ font-size:23px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Concorde <span>NGR</span> - User manual</h1>
+  <div class="muted">MCDU for X-Plane 12 · Concorde FXP (Colimata) · <strong>version V1.0</strong> · 11 Nov 2026</div>
+  <div class="lang"><a href="NOTICE_FR.html">Français</a><a class="on" href="NOTICE_EN.html">English</a></div>
+</header>
+<nav class="toc">
+  <a href="#premier-vol">First flight</a>
+  <a href="#installation">Installation</a>
+  <a href="#ecran">Screen and keys</a>
+  <a href="#pages">The pages</a>
+  <a href="#sommeil">Sleep</a>
+  <a href="#surveillance-fms">FMS watch</a>
+  <a href="#pilote-auto">Autopilot option</a>
+  <a href="#ecran-cockpit">Cockpit screen</a>
+  <a href="#depannage">Troubleshooting</a>
+  <a href="#historique">History</a>
+</nav>
+
+<main>
+
+<!-- SECTION: PREMIER_VOL -->
+<section id="premier-vol">
+  <h2>Quick first flight</h2>
+  <p>Ten steps, from gate to gate. Every page is explained in detail further down.</p>
+  <ol class="steps">
+    <li><strong>Power up.</strong> Load the Concorde FXP and set <strong>battery 1 or 2 to ON</strong>: the MCDU switches on (splash image for 10 s). To show it in a window: <em>Plugins &gt; Concorde_NGR &gt; Afficher / masquer MCDU</em> (show / hide).</li>
+    <li><strong>Prepare the aircraft.</strong> <kbd>DATA</kbd> &gt; <em>ENGINEER</em> &gt; <em>SEQ ENGINEER FO</em> &gt; <em>START PLANE COPILOT</em>: press <strong>twice within 5 s</strong>. The first officer and the flight engineer prepare the aircraft, then report by voice.</li>
+    <li><strong>SimBrief plan.</strong> <kbd>INIT</kbd> &gt; <em>SIMBRIEF</em>: enter your SimBrief ID on L1, then <em>INIT REQUEST</em> (L6) to fetch the plan, <em>INSERT F-PLN</em> (R5) for the route, and <em>LOAD FUEL/PAX</em> (R6) for passengers, cargo and fuel. Fuel is computed by NGR: no APPLY is needed in the Colimata panel any more.<br><span class="muted">Without SimBrief: <em>INIT &gt; FMS FILES</em>, then <em>FMS LOAD</em>.</span></li>
+    <li><strong>Departure and arrival.</strong> <em>INIT &gt; DEPARTURE</em> (runway, SID), then <em>INIT &gt; ARRIVAL</em> (approach, STAR) and <em>INSERT*</em>. Check <em>SPD KT/MACH</em> and <em>CRZ FL</em>; <em>OPTI CRUISE ALT</em> (magenta) gives the advised level.</li>
+    <li><strong>Take-off speeds.</strong> <kbd>PERF</kbd>: V1 / VR / V2, runway, weight and <em>CG/TRIM</em> setting.</li>
+    <li><strong>Engines.</strong> <em>SEQ ENGINEER FO &gt; START ENGINE ENGINEER</em> (press twice).</li>
+    <li><strong>Before take-off: arm MANAGED.</strong> On the <kbd>ND</kbd>, press <em>GERE</em> (managed). It does nothing until the autopilot is engaged. <strong>Take-off is flown by hand.</strong></li>
+    <li><strong>After take-off: engage the autopilot.</strong> As soon as the AP is engaged, MANAGED takes over speed and V/S and follows the profile up to cruise. With the <em>REHEAT AUTO</em> option, reheat is on between M1.0 and M1.7.</li>
+    <li><strong>En route.</strong> <kbd>VOL</kbd> page (profile, terrain, weather) and <kbd>FUEL PRED</kbd> (fuel remaining at destination). MANAGED also flies the descent.</li>
+    <li><strong>Approach and parking.</strong> Optionally, <em>ILS AUTO</em> on the ND sets the localizer course by itself as soon as the ILS is received: the approach is then flown on the ILS alone. At the gate: <em>OFF ENGINE ENGINEER</em>, then <em>OFF PLANE COPILOT</em>.</li>
+  </ol>
+  <div class="box warn"><strong>You remain the captain:</strong> always monitor speed, altitude and fuel on the aircraft instruments. You can take over at any time.</div>
+  <div class="box ok"><strong>Tip:</strong> fly a short leg first to discover the MCDU.</div>
+</section>
+<!-- FIN: PREMIER_VOL -->
+
+<!-- SECTION: INSTALLATION -->
+<section id="installation">
+  <h2>Installation</h2>
+  <p><strong>Requirements:</strong> X-Plane 12.4.4 or later only, Windows 64-bit, Colimata Concorde FXP version 3.53. <strong>X-Plane must be closed</strong> during installation.</p>
+  <p><strong>Not compatible with X-Plane 11</strong> (the plugin uses the X-Plane 12 interface, and the required Concorde FXP v3.53 is an X-Plane 12 aircraft).</p>
+  <ol class="steps">
+    <li><strong>Extract</strong> the whole zip into a separate folder (not directly into X-Plane).<br><span class="muted">Tip: before extracting, right-click the zip &gt; Properties &gt; tick "Unblock" &gt; OK. Windows will no longer block the .bat files (see <a href="#depannage">Troubleshooting</a>).</span></li>
+    <li><strong>Run <code>installer\installer.bat</code>.</strong> It finds X-Plane 12 and <code>CONCORDE_FXP.acf</code>, then offers:
+      <table>
+        <tr><th>Choice</th><th>Use</th></tr>
+        <tr><td>1</td><td>Automatic install, exact original ACF (<strong>recommended</strong>)</td></tr>
+        <tr><td>2</td><td>Force key by key (other version, or already modified ACF)</td></tr>
+        <tr><td>3</td><td>Copy the files only (you edit the ACF by hand)</td></tr>
+        <tr><td>4</td><td>Uninstall</td></tr>
+        <tr><td>5</td><td>Quit</td></tr>
+      </table>
+      It adds the airfoils, the tablet and the MCDU screen in the cockpit, and backs up the original (<code>CONCORDE_FXP.acf.originalconcorde</code>). It then offers to copy the <code>Concorde_NGR</code> plugin into <code>X-Plane 12\Resources\plugins</code>: answer <strong>Y</strong>.</li>
+    <li><strong>Recommended:</strong> run <code>installer\installer_pilote_auto.bat</code>, choice <strong>1</strong>: autopilot settings the MCDU calculations rely on (see <a href="#pilote-auto">Autopilot option</a>).</li>
+    <li><strong>Start X-Plane</strong>, load the Concorde FXP, battery 1 or 2 ON: the MCDU powers up.</li>
+  </ol>
+  <h3>Uninstall</h3>
+  <p><code>installer_pilote_auto.bat</code> choice 2, then <code>installer.bat</code> choice 4. The aircraft goes back to exactly the original. Details of every change: <code>installer\LIST_OF_CHANGES.txt</code>.</p>
+  <h3>Check that it works</h3>
+  <p>In <code>X-Plane 12\Log.txt</code>, look for <code>Loaded Concorde_NGR.xpl</code> and <code>libcef.dll pret</code>.</p>
+</section>
+<!-- FIN: INSTALLATION -->
+
+<!-- SECTION: ECRAN -->
+<section id="ecran">
+  <h2>Screen and keys</h2>
+  <div class="page">
+    <div>
+      <p><strong>Line keys:</strong> 6 on the left (L1 to L6) and 6 on the right (R1 to R6). The text next to a key tells what it does: open a page (<code>&lt;SIMBRIEF</code>, <code>WIND&gt;</code>), toggle a choice (<code>&lt;ON</code>) or send the scratchpad into the line. A key with no function shows <code>NOT ALLOWED</code>.</p>
+      <p><strong>◀ ▶</strong> (above the page keys): previous / next page, like a web browser.</p>
+      <p><strong>Status line</strong> (at the very bottom): <code>X-PLANE OK</code> = link with the simulator; <code>FMS OK</code> = link with the plugin and the X-Plane FMS. <code>HORS LIGNE</code> (offline) means a problem (see <a href="#depannage">Troubleshooting</a>).</p>
+    </div>
+    <figure><img src="images/capture_init.png" alt="INIT page"><figcaption>INIT page: line keys, scratchpad [ ], page keys.</figcaption></figure>
+  </div>
+  <h3>Page keys</h3>
+  <table>
+    <tr><th>Key</th><th>Page</th></tr>
+    <tr><td><kbd>STATUS</kbd></td><td>Aircraft status: GEN, HYD, ECAM, WHEELS, CABIN, PLANE, WX, FUEL PRED, JET</td></tr>
+    <tr><td><kbd>ND</kbd></td><td>Navigation display, autopilot buttons and MANAGED (GERE)</td></tr>
+    <tr><td><kbd>VOL</kbd></td><td>Flight profile, terrain, weather, checklists</td></tr>
+    <tr><td><kbd>F-PLN</kbd></td><td>Flight plan</td></tr>
+    <tr><td><kbd>PERF</kbd></td><td>Performance of the current phase</td></tr>
+    <tr><td><kbd>RAD NAV</kbd></td><td>VHF, VOR, ADF radios, transponder</td></tr>
+    <tr><td><kbd>FUEL PRED</kbd></td><td>Fuel prediction</td></tr>
+    <tr><td><kbd>DIR</kbd></td><td>Direct to a waypoint</td></tr>
+    <tr><td><kbd>INIT</kbd></td><td>Flight preparation</td></tr>
+    <tr><td><kbd>DATA</kbd></td><td>Index: options, SimBrief, fuel, .FMS files, engineer</td></tr>
+    <tr><td><kbd>PROG</kbd></td><td>Flight progress</td></tr>
+    <tr><td><kbd>▲</kbd> <kbd>▼</kbd></td><td>Previous / next sheet of the same page (1/2, 2/2…)</td></tr>
+    <tr><td><kbd>CLR</kbd></td><td>Clears the scratchpad, then the message; on an empty scratchpad, writes CLR to delete a value</td></tr>
+  </table>
+  <h3>Entering a value</h3>
+  <ol class="steps">
+    <li>Type on the PC keyboard: everything goes into the scratchpad <code>[ ]</code> at the bottom of the screen.</li>
+    <li>Press the matching line key (e.g. <code>M2.02</code> then L1 on INIT).</li>
+    <li>A rejected value shows <code>FORMAT ERROR</code>: correct it and try again.</li>
+  </ol>
+  <h3>Colours</h3>
+  <table>
+    <tr><th>Colour</th><th>Meaning</th></tr>
+    <tr><td>White</td><td>Label</td></tr>
+    <tr><td style="color:var(--b)">Blue</td><td>Editable value or action</td></tr>
+    <tr><td style="color:var(--g)">Green</td><td>Measured or confirmed value</td></tr>
+    <tr><td style="color:var(--m)">Magenta</td><td>Computed or advised value (OPTI CRUISE ALT, SPD GEREE)</td></tr>
+    <tr><td style="color:var(--o)">Orange</td><td>To check, alert</td></tr>
+  </table>
+</section>
+<!-- FIN: ECRAN -->
+
+<section id="pages">
+  <h2>The pages</h2>
+  <p>One section per page, in flight order.</p>
+
+<!-- SECTION: PAGE_INIT -->
+<h3 id="p-init">INIT: flight preparation</h3>
+  <div class="page">
+    <table>
+      <tr><th>Key</th><th>Line</th><th>Function</th></tr>
+      <tr><td>L1</td><td>SPD KT/MACH</td><td>Cruise speed or Mach: <code>350/</code>, <code>/0.93</code>, <code>350/0.93</code>, <code>M2.02</code>. <kbd>CLR</kbd> restores the default.</td></tr>
+      <tr><td>L2</td><td>&lt;SIMBRIEF</td><td>Opens the SIMBRIEF page.</td></tr>
+      <tr><td>L3</td><td>&lt;FMS FILES</td><td>List of X-Plane <code>.fms</code> plans.</td></tr>
+      <tr><td>L4</td><td>&lt;DEPARTURE</td><td>Departure runway and SID.</td></tr>
+      <tr><td>L5</td><td>&lt;FMS X-PLANE &gt; MCDU</td><td>Takes the plan already entered in the X-Plane FMS and opens F-PLN.</td></tr>
+      <tr><td>L6</td><td>COST INDEX</td><td>10 to 200. <span class="muted">Reserved: its full effect comes in a future update.</span></td></tr>
+      <tr><td>R1</td><td>FROM/TO</td><td>Plan departure / arrival (green when loaded, orange when empty).</td></tr>
+      <tr><td>R2</td><td>CRZ FL</td><td>Cruise level, <code>FL100</code> to <code>FL650</code> (e.g. <code>FL580</code>).</td></tr>
+      <tr><td>R3</td><td>FMS LOAD&gt;</td><td>Passengers / fuel loading for a <code>.fms</code> plan.</td></tr>
+      <tr><td>R4</td><td>WIND&gt;</td><td>Flight winds (see below). Above it: <code>FMS ONLINE</code> / <code>OFFLINE</code>.</td></tr>
+      <tr><td>R5</td><td>ARRIVAL&gt;</td><td>Approach, transition and STAR.</td></tr>
+      <tr><td>R6</td><td>OPTI CRUISE ALT</td><td>Advised level (magenta). The key opens the detail: weight, ISA deviation, wind, best <strong>subsonic</strong> and <strong>supersonic</strong> Mach/FL, distance per tonne and fuel at destination. <code>*</code> = estimated value.</td></tr>
+    </table>
+    <figure><img src="images/capture_init.png" alt="INIT page"><figcaption>INIT 1/2. <kbd>▼</kbd> leads to OPTIONS.</figcaption></figure>
+  </div>
+  <p><strong>WIND:</strong> three pages, <em>CLIMB WIND</em>, <em>CRZ WIND</em> (one wind per plan waypoint, at cruise level) and <em>DESCENT WIND</em>. Enter a wind as <code>270/45</code> on the wanted line, <kbd>CLR</kbd> to delete it. <em>WIND REQUEST&gt;</em> fills the winds automatically from the selected source (SimBrief or X-Plane FMS). The real measured wind is shown for comparison.</p>
+<!-- FIN: PAGE_INIT -->
+
+<!-- SECTION: PAGE_SIMBRIEF -->
+<h3 id="p-simbrief">SIMBRIEF</h3>
+  <div class="page">
+    <table>
+      <tr><th>Key</th><th>Line</th><th>Function</th></tr>
+      <tr><td>L1</td><td>PILOT ID</td><td>Your SimBrief ID (digits only). It is remembered.</td></tr>
+      <tr><td>R1</td><td>STATUS</td><td><code>OK</code>, <code>ATTENTE</code> (waiting), <code>ERREUR</code> (error), <code>RESEAU</code> (no internet).</td></tr>
+      <tr><td>R2</td><td>RESET F-PLN&gt;</td><td>Clears the MCDU plan and the X-Plane FMS. <strong>Press twice within 5 s</strong> (the first press arms it, in orange).</td></tr>
+      <tr><td>—</td><td>BLOCK NGB/SB</td><td>Fuel computed by NGR / SimBrief fuel (information).</td></tr>
+      <tr><td>—</td><td>MACH/FL</td><td>Mach and level of the NGR computation (orange if the flight stays subsonic).</td></tr>
+      <tr><td>—</td><td>ZFW/TOW · PAX/DIST</td><td>Weights, passengers, distance.</td></tr>
+      <tr><td>L5</td><td>&lt;WIND REQUEST</td><td>Loads the SimBrief winds.</td></tr>
+      <tr><td>R5</td><td>INSERT F-PLN&gt;</td><td>Inserts the route. <strong>SID and STAR are not inserted</strong>: pick them afterwards with DEPARTURE / ARRIVAL.</td></tr>
+      <tr><td>L6</td><td>&lt;INIT REQUEST</td><td>Fetches your latest SimBrief plan.</td></tr>
+      <tr><td>R6</td><td>LOAD FUEL/PAX&gt;</td><td>Loads passengers and cargo (SimBrief) and the <strong>fuel computed by NGR</strong> (SimBrief only if the computation is impossible). 20 s check: <code>CHARGE</code> (loaded, green) or <code>A VERIFIER</code> (to check, orange).</td></tr>
+    </table>
+    <figure><img src="images/capture_simbrief.png" alt="SIMBRIEF page"><figcaption>SIMBRIEF: plan loaded, NGR / SimBrief fuel.</figcaption></figure>
+  </div>
+<!-- FIN: PAGE_SIMBRIEF -->
+
+<!-- SECTION: PAGE_FMS_FILES -->
+<h3 id="p-fmsfiles">FMS FILES</h3>
+  <div class="page">
+    <p>The list of X-Plane <code>.fms</code> plans, 6 per page (<kbd>▲</kbd> <kbd>▼</kbd> to scroll). Press a plan: it is loaded into the MCDU and the X-Plane FMS. The cruise level is taken from the file when present, winds are requested from X-Plane, then the <strong>FMS LOAD</strong> page opens.</p>
+    <figure><img src="images/capture_fms_files.png" alt="FMS FILES page"><figcaption>FMS FILES: one plan per line key.</figcaption></figure>
+  </div>
+<!-- FIN: PAGE_FMS_FILES -->
+
+<!-- SECTION: PAGE_FMS_LOAD -->
+<h3 id="p-fmsload">FMS LOAD</h3>
+  <div class="page">
+    <table>
+      <tr><th>Key</th><th>Line</th><th>Function</th></tr>
+      <tr><td>L1</td><td>PAX</td><td>0 to 100.</td></tr>
+      <tr><td>R1</td><td>CARGO</td><td>0 to 4.3 t.</td></tr>
+      <tr><td>—</td><td>ZFW/TOW · DIST/WIND</td><td>Weights (orange if too heavy), distance and head (HD) or tail (TL) wind.</td></tr>
+      <tr><td>—</td><td>TRIP/RESERVE · MACH/FL</td><td>Trip fuel, reserve, computed Mach/FL.</td></tr>
+      <tr><td>—</td><td>COMPUTED FUEL</td><td>Fuel computed by NGR.</td></tr>
+      <tr><td>L5</td><td>FUEL TO LOAD</td><td>Defaults to the computation; you can enter 1 to 95 t. <kbd>CLR</kbd> goes back to the computation.</td></tr>
+      <tr><td>R4</td><td>FUEL ONLY&gt;</td><td>Loads the fuel only.</td></tr>
+      <tr><td>R5</td><td>WIND REQUEST&gt;</td><td>Requests the winds again.</td></tr>
+      <tr><td>L6</td><td>&lt;F-PLN</td><td>Opens the flight plan.</td></tr>
+      <tr><td>R6</td><td>LOAD&gt;</td><td>Loads passengers, cargo and fuel (same check as SimBrief).</td></tr>
+    </table>
+    <figure><img src="images/capture_fms_load.png" alt="FMS LOAD page"><figcaption>FMS LOAD: loading for a .fms plan.</figcaption></figure>
+  </div>
+<!-- FIN: PAGE_FMS_LOAD -->
+
+<!-- SECTION: PAGE_DEPARTURE_ARRIVAL -->
+<h3 id="p-deparr">DEPARTURE / ARRIVAL</h3>
+  <p>From INIT, or by pressing the first / last waypoint on F-PLN. The choice is made step by step: press a blue <code>&lt;…</code> line, the next step appears. <kbd>▲</kbd> <kbd>▼</kbd> scroll the list (4 lines). The selection is shown in yellow at the top.</p>
+  <ul>
+    <li><strong>DEPARTURE:</strong> runway ▸ SID (or <code>NO SID</code>) ▸ transition (or <code>NO TRANS</code>). L1 goes back to runways, R1 to SIDs. The plan origin is placed at the <strong>threshold of the chosen runway</strong>.</li>
+    <li><strong>ARRIVAL:</strong> approach ▸ VIA (or <code>NO VIA</code>) ▸ STAR (or <code>NO STAR</code>) ▸ transition. L1 goes back to approaches, R1 to STARs.</li>
+    <li><strong>R6 <code>INSERT*</code></strong> (orange): inserts into the plan and the X-Plane FMS, then opens F-PLN. <strong>L6 <code>&lt;F-PLN</code></strong>: leave without inserting.</li>
+  </ul>
+  <div class="page" style="grid-template-columns:1fr 1fr">
+    <figure><img src="images/capture_departure.png" alt="DEPARTURE page"><figcaption>DEPARTURE: runway choice.</figcaption></figure>
+    <figure><img src="images/capture_arrival.png" alt="ARRIVAL page"><figcaption>ARRIVAL: approach, VIA and STAR selected, INSERT*.</figcaption></figure>
+  </div>
+<!-- FIN: PAGE_DEPARTURE_ARRIVAL -->
+
+<!-- SECTION: PAGE_FPLN -->
+<h3 id="p-fpln">F-PLN: flight plan</h3>
+  <div class="page">
+    <div>
+      <p>5 waypoints per page (<kbd>▲</kbd> <kbd>▼</kbd>). For each waypoint: course and distance from the previous one, route (airway, SID…), altitude or constraint, passing time computed with the winds. <code>&gt;</code> marks the active waypoint. At the bottom: destination, arrival time, remaining distance and <strong>EFOB</strong> (fuel at destination).</p>
+      <table>
+        <tr><th>Action</th><th>Effect</th></tr>
+        <tr><td>Left key, empty scratchpad</td><td>Copies the waypoint name into the scratchpad. 1<sup>st</sup> waypoint: DEPARTURE; last: ARRIVAL.</td></tr>
+        <tr><td>Left key + <code>NAME</code></td><td>Inserts that waypoint (VOR, NDB, fix, airport) <strong>before</strong> the line.</td></tr>
+        <tr><td>Left key + <code>DEL</code> / <code>CLR</code></td><td>Deletes the waypoint.</td></tr>
+        <tr><td>Right key + constraint</td><td><code>+5000</code> (at or above), <code>-FL100</code> (at or below), <code>FL170/FL150</code> (between), <code>250/FL080</code> (speed/altitude), <code>580</code> = FL580. Constraint in <span style="color:var(--m)">magenta</span>; <code>CLR</code> deletes it.</td></tr>
+        <tr><td>L6, empty scratchpad</td><td>Opens DIR TO.</td></tr>
+        <tr><td>L6 + <code>NAME</code></td><td>Adds the waypoint before the destination.</td></tr>
+      </table>
+      <p class="muted">Empty plan: the page offers <code>&lt;SIMBRIEF</code>, <code>&lt;FMS FILES</code>, or typing <code>DEP/ARR</code> on L4 (e.g. <code>LFPG/KJFK</code>).</p>
+    </div>
+    <figure><img src="images/capture_fpln.png" alt="F-PLN page"><figcaption>F-PLN: waypoints, distances, destination and EFOB.</figcaption></figure>
+  </div>
+<!-- FIN: PAGE_FPLN -->
+
+<!-- SECTION: PAGE_DIR_TO -->
+<h3 id="p-dirto">DIR TO</h3>
+  <div class="page">
+    <div>
+      <p>The list of remaining waypoints with their distance: press one for a direct, also sent to the X-Plane FMS.</p>
+      <p>You can also type a name on L1: if it is in the plan, direct to it; otherwise it is searched in the database, inserted before the active waypoint, then direct.</p>
+      <p>Messages: <code>DIR TO X</code> (green) = done; <code>FMS NON SYNCHRO</code> (orange, not in sync) = check the X-Plane FMS.</p>
+    </div>
+    <figure><img src="images/capture_dirto.png" alt="DIR TO page"><figcaption>DIR TO: one direct per line key.</figcaption></figure>
+  </div>
+<!-- FIN: PAGE_DIR_TO -->
+
+<!-- SECTION: PAGE_PERF -->
+<h3 id="p-perf">PERF: performance</h3>
+  <p><kbd>PERF</kbd> opens the current phase. <code>&lt;PHASE</code> / <code>PHASE&gt;</code> (L6 / R6) step through them: TAKE OFF ▸ CLB ▸ CRZ ▸ APPR.</p>
+  <div class="page">
+    <div>
+      <p><strong>TAKE OFF</strong>: the longest runway is picked automatically (<code>LONGEST</code>); R1 opens DEPARTURE to change it.</p>
+      <table>
+        <tr><th>Key</th><th>Line</th><th>Function</th></tr>
+        <tr><td>—</td><td>V1 / VR / V2</td><td>Computed take-off speeds.</td></tr>
+        <tr><td>R1</td><td>TORA / ELEV</td><td>Runway length available and elevation.</td></tr>
+        <tr><td>R2</td><td>TOW / MTOW RWY</td><td>Take-off weight / maximum weight for this runway (orange if exceeded).</td></tr>
+        <tr><td>R3</td><td>ASD / TOD REQ</td><td>Required accelerate-stop and take-off distances.</td></tr>
+        <tr><td>L4</td><td>OAT/QNH</td><td>X-Plane or METAR source. Entry <code>12/1013</code>; <kbd>CLR</kbd> = auto.</td></tr>
+        <tr><td>R4</td><td>WIND</td><td>Runway wind, <code>270/15</code>; <kbd>CLR</kbd> = auto.</td></tr>
+        <tr><td>L5</td><td>RWY</td><td>Toggles runway <strong>DRY / WET</strong> (SECHE / MOUILLEE).</td></tr>
+        <tr><td>R5</td><td>V1 MIN/MAX</td><td>V1 range; <code>PISTE COURTE</code> (runway too short) if impossible.</td></tr>
+        <tr><td>L6</td><td>&lt;CG/TRIM</td><td>Weight, CG %MAC, nose 5° / 4 reheats ON, fuel trim TAKEOFF, ASI bugs, reminders (250 kt ASAP, reheat OFF at 2-3,000 ft).</td></tr>
+      </table>
+      <p class="muted">Orange message <code>DECOLLAGE LIMITE : PISTE TROP COURTE</code> (take-off limited, runway too short) when the weight is too high for the runway.</p>
+    </div>
+    <figure><img src="images/capture_perf_to.png" alt="PERF TAKE OFF page"><figcaption>PERF TAKE OFF: longest runway, V1/VR/V2.</figcaption></figure>
+  </div>
+  <p><strong>CLB (climb)</strong></p>
+  <table>
+    <tr><th>Key</th><th>Line</th><th>Function</th></tr>
+    <tr><td>L1</td><td>SPD/MACH</td><td>Managed speed / Mach.</td></tr>
+    <tr><td>R1</td><td>MAN SPD CLB</td><td>Selected climb speed, 250 to 500 kt; empty or <kbd>CLR</kbd> = managed.</td></tr>
+    <tr><td>—</td><td>PALIER FIXE</td><td>Subsonic level-off and supersonic transition (e.g. <code>FL290 M0.95&gt;…</code>).</td></tr>
+    <tr><td>—</td><td>TRIM CARBU · CG ACT</td><td>Fuel trim mode, actual CG.</td></tr>
+    <tr><td>—</td><td>CONSIGNE · REHEAT MAX</td><td>Phase advice; reheat 15 min max.</td></tr>
+    <tr><td>—</td><td>CRZ · V/S / THR</td><td>Cruise Mach/FL; current V/S and thrust law.</td></tr>
+  </table>
+  <p><strong>CRZ (cruise)</strong></p>
+  <table>
+    <tr><th>Key</th><th>Line</th><th>Function</th></tr>
+    <tr><td>L1</td><td>OPTI MACH CRZ</td><td>Optimum Mach. Entering <code>FL560</code> changes the level.</td></tr>
+    <tr><td>R1</td><td>OPTI CRUISE ALT</td><td>Optimum level (magenta). Empty key = adopt this level; <code>FL560</code> = set it.</td></tr>
+    <tr><td>R2</td><td>DIST</td><td>Remaining distance; the key opens the OPTI CRUISE ALT detail.</td></tr>
+    <tr><td>—</td><td>FOB/GW · EFOB/RES</td><td>Fuel, weight; fuel at destination / reserve.</td></tr>
+    <tr><td>—</td><td>ACT FF/AUTON · TRIP EST · MOY FF/TEMPS</td><td>Current fuel flow and endurance, estimated trip, average flow and flight time.</td></tr>
+  </table>
+  <p><strong>APPR (approach)</strong>: VAPP (with wind correction), VLS, landing weight (orange above MLW), destination and approach, nose 12.5° / visor down, attitude ~10° on approach and ~12° at touchdown, fuel trim LANDING, reminders 60 ft THR IDLE and REVERSE at touchdown.</p>
+<!-- FIN: PAGE_PERF -->
+
+<!-- SECTION: PAGE_PROG -->
+  <h3 id="p-prog">PROG: flight progress</h3>
+  <div class="page">
+    <div>
+      <p>The current phase is in the title (PREFLIGHT, TAKE OFF, CLIMB, CRUISE, DESCENT, APPROACH). Read only, except R5.</p>
+      <table>
+        <tr><th>Line</th><th>Content</th></tr>
+        <tr><td>CRZ · ALT ACT</td><td>Cruise level; current altitude.</td></tr>
+        <tr><td>TO · DIST/TIME</td><td>Next waypoint, distance and passing time.</td></tr>
+        <tr><td>DEST · DIST/ETA</td><td>Destination, remaining distance and arrival time.</td></tr>
+        <tr><td>MACH/GS · V/S</td><td>Mach, ground speed, vertical speed.</td></tr>
+        <tr><td>SAT/UTC</td><td>Outside temperature, UTC time.</td></tr>
+        <tr><td>R5 SPD GEREE</td><td>Toggles <strong>managed speed</strong> ON (magenta, with target) / OFF. ON: the autothrottle holds the profile speed (IAS HOLD / ACQ).</td></tr>
+        <tr><td>VENT REEL · VENT PREVU</td><td>Measured wind; forecast wind at the next waypoint.</td></tr>
+      </table>
+    </div>
+    <figure><img src="images/capture_prog.png" alt="PROG page"><figcaption>PROG on the ground (TAKE OFF).</figcaption></figure>
+  </div>
+<!-- FIN: PAGE_PROG -->
+
+<!-- SECTION: PAGE_FUEL_PRED -->
+  <h3 id="p-fuelpred">FUEL PRED: fuel prediction</h3>
+  <div class="page">
+    <table>
+      <tr><th>Line</th><th>Content</th></tr>
+      <tr><td>AT · UTC/EFOB</td><td>Destination; arrival time / fuel at destination (orange below reserve).</td></tr>
+      <tr><td>GW · FOB</td><td>Gross weight; fuel on board (t).</td></tr>
+      <tr><td>TRIP/TIME · DIST</td><td>Trip fuel and time; remaining distance.</td></tr>
+      <tr><td>RTE RSV/ALTN</td><td>Route reserve / alternate fuel.</td></tr>
+      <tr><td>DIST REST PRED · LIVE</td><td>Distance margin beyond destination, predicted and with the current consumption (green if positive, orange if negative).</td></tr>
+      <tr><td>DIST POSS/AUTON</td><td>Possible range and endurance.</td></tr>
+      <tr><td>LW FCST/MLW</td><td>Forecast landing weight / maximum (orange if exceeded: think JETTISON).</td></tr>
+      <tr><td>R6 JETTISON&gt;</td><td>Opens fuel dumping (orange while dumping).</td></tr>
+    </table>
+    <figure><img src="images/capture_fuelpred.png" alt="FUEL PRED page"><figcaption>FUEL PRED: here forecast LW above MLW (orange).</figcaption></figure>
+  </div>
+<!-- FIN: PAGE_FUEL_PRED -->
+
+<!-- SECTION: PAGE_JETTISON -->
+  <h3 id="p-jettison">JETTISON: fuel dumping</h3>
+  <div class="page">
+    <div>
+      <p>Computes the fuel to dump to land <strong>below MLW</strong> (111.1 t) without touching the fuel for the rest of the flight and the reserves. The diagram shows every tank. Dumping uses the non-feeder tanks, pro rata, so the CG moves little; it stops automatically at the target.</p>
+      <table>
+        <tr><th>Button</th><th>Effect</th></tr>
+        <tr><td>AUTO TARGET (MLW)</td><td>Automatic target: land at MLW.</td></tr>
+        <tr><td>MANUAL DUMP · DUMP −1T / +1T</td><td>Quantity set by hand (5 t minimum left on board).</td></tr>
+        <tr><td>1.5 T/MIN</td><td>Rate: 0.5 / 1 / 1.5 / 2 / 3 t/min.</td></tr>
+        <tr><td>START</td><td><strong>Press twice within 5 s</strong>. Not allowed on the ground.</td></tr>
+        <tr><td>STOP</td><td>Stops dumping.</td></tr>
+        <tr><td>◄ FUEL PRED</td><td>Back.</td></tr>
+      </table>
+      <p class="muted">On the right: FOB, TO DUMP, TARGET, quantity already dumped, EFOB at destination, forecast LW, rate and time left.</p>
+    </div>
+    <figure><img src="images/capture_jettison.png" alt="JETTISON page"><figcaption>JETTISON: 31.2 t to dump to land at MLW.</figcaption></figure>
+  </div>
+<!-- FIN: PAGE_JETTISON -->
+
+<!-- SECTION: PAGE_RAD_NAV -->
+  <h3 id="p-radnav">RAD NAV: radios</h3>
+  <div class="page">
+    <table>
+      <tr><th>Key</th><th>Line</th><th>Function</th></tr>
+      <tr><td>L1 / L2</td><td>VHF1 / VHF2 ACTIVE &lt;SWAP</td><td>Empty key: swaps active / standby. With a frequency: sets it as standby.</td></tr>
+      <tr><td>R1 / R2</td><td>WAITING</td><td>Standby frequency: <code>118.705</code> or <code>18705</code> (118.000 to 136.990).</td></tr>
+      <tr><td>L3 / R3</td><td>VOR1 / VOR2</td><td>Frequency (108.00 to 117.95) or identifier (e.g. <code>TOU</code>: nearest beacon). Ident and DME shown.</td></tr>
+      <tr><td>L4 / R4</td><td>CRS1 / CRS2</td><td>VOR/LOC selector courses.</td></tr>
+      <tr><td>L5 / R5</td><td>ADF1 / ADF2</td><td>ADF frequency (e.g. <code>375</code>).</td></tr>
+      <tr><td>L6</td><td>&lt;SURV</td><td>Transponder / TCAS page: SQWK code, STBY / ALT / TA / TA-RA, IDENT, ABV / NORM / BLW / ALL filters, range.</td></tr>
+    </table>
+    <figure><img src="images/capture_radnav.png" alt="RADIO page"><figcaption>RAD NAV: VHF, VOR, ADF, transponder.</figcaption></figure>
+  </div>
+<!-- FIN: PAGE_RAD_NAV -->
+
+<!-- SECTION: PAGE_ND -->
+  <h3 id="p-nd">ND: navigation display and autopilot</h3>
+  <div class="page">
+    <div>
+      <p><strong>Top:</strong> advised OPTI level, active constraint (CSTR), T/D, destination and time, range, fuel trim mode; on the right, selected altitude and heading.</p>
+      <table>
+        <tr><th>Button</th><th>Effect</th></tr>
+        <tr><td>ARC / ROSE / PLAN</td><td>Changes the display mode. In PLAN, <code>◄ PT</code> / <code>PT ►</code> step through the plan waypoints.</td></tr>
+        <tr><td>RNG− / RNG+</td><td>Range (also with the mouse wheel).</td></tr>
+        <tr><td>CSTR · TFC · VOR1 · VOR2 · ADF · ILS</td><td>Shows constraints, traffic, VOR/ADF needles, ILS rose.</td></tr>
+        <tr><td>DIR TO · SURV · VOL</td><td>Shortcuts to DIR TO, the transponder/TCAS page and the VOL page.</td></tr>
+      </table>
+      <p><strong>Middle:</strong> the <strong>alarms</strong> (ALARM, red/orange) and the phase <strong>checklist</strong> (<code>◄</code> <code>▶</code> to change list, <code>✔</code> to confirm; lines tick themselves when the aircraft confirms them).</p>
+      <p><strong>Bottom, the autopilot</strong> (each button drives the real Colimata button and lights up with its annunciator):</p>
+      <table>
+        <tr><th>Button</th><th>Effect</th></tr>
+        <tr><td>AP1 · AP2 · AT1 · AT2 · FD</td><td>Autopilots, autothrottles, flight directors.</td></tr>
+        <tr><td>ACQ · IAS · MACH</td><td>IAS ACQ, IAS HOLD, MACH HOLD. On the ground the autothrottle is not engaged with these modes (safety: it would go to full power).</td></tr>
+        <tr><td>LAND</td><td>Autoland.</td></tr>
+        <tr><td>ILS AUTO</td><td>Option: sets the localizer course by itself as soon as the ILS is received; the approach is then flown on the ILS alone.</td></tr>
+        <tr><td>WX</td><td>Shows the cockpit weather radar behind the ND (range = radar selector).</td></tr>
+        <tr><td><strong>GERE</strong></td><td>Managed mode: speed + V/S following the profile, from climb to descent. Arm it <strong>before take-off</strong>: it acts as soon as the AP is engaged (above 1,000 ft AGL). The text on the right gives the target (SPD, ALT, V/S, segment).</td></tr>
+      </table>
+    </div>
+    <figure><img src="images/capture_nd.png" alt="ND page"><figcaption>ND in ILS ROSE on the ground: alarms, STARTUP checklist, AP and GERE buttons.</figcaption></figure>
+  </div>
+<!-- FIN: PAGE_ND -->
+
+<!-- SECTION: PAGE_VOL -->
+  <h3 id="p-vol">VOL: flight profile</h3>
+  <div class="page">
+    <div>
+      <p><strong>Top (briefing):</strong> phase, FL, Mach, ground speed; route, remaining distance and time, ETA, TOD, FOB; reheat time used (out of 15 min), wind, transition level; LAND / SEA distances and supersonic distance; current and next checklist. The next event blinks less than 2 min before.</p>
+      <p><strong>The profile:</strong> planned climb, level-off, Mach (M0.95, M1.3, M1.7… markers), cruise and descent, real aircraft position, terrain under the route, clouds and storms (CB), land / sea band at the bottom.</p>
+      <table>
+        <tr><th>Button</th><th>Effect</th></tr>
+        <tr><td>PROFILE · TERRAIN · WX</td><td>Shows / hides the planned profile, the terrain, X-Plane weather.</td></tr>
+        <tr><td>RESET</td><td>Restores zoom, screen split and text sizes.</td></tr>
+        <tr><td>✈ PLANE</td><td>The zoomed profile follows the aircraft (otherwise free).</td></tr>
+        <tr><td>WPT · VOR · APT · MARKERS · CHECKLIST</td><td>Shows waypoints, VORs, airports, sequence markers, checklist.</td></tr>
+        <tr><td>SOUND</td><td>Mutes / restores all audio alerts.</td></tr>
+        <tr><td>SURV · ND</td><td>Shortcuts.</td></tr>
+      </table>
+      <p class="muted">Mouse: wheel = zoom around the cursor; the ⇕ bar splits profile and briefing; drag the briefing to scroll; wheel on text = text size.</p>
+    </div>
+    <figure><img src="images/capture_vol.png" alt="VOL page"><figcaption>VOL: planned profile, terrain, CB, land / sea.</figcaption></figure>
+  </div>
+<!-- FIN: PAGE_VOL -->
+
+<!-- SECTION: PAGE_STATUT -->
+  <h3 id="p-statut">STATUS: aircraft state</h3>
+  <p>Tabs at the bottom of the screen. Most pages are read only, ECAM style: green = normal, amber/orange = fault, cyan = units.</p>
+  <table>
+    <tr><th>Tab</th><th>Content</th></tr>
+    <tr><td>GEN</td><td>The 4 engines: N1 (dials), N2, EGT, fuel flow, reheat. Header: gear, nose, weight, FOB, total flow, CG (and limits), reheats.</td></tr>
+    <tr><td>HYD</td><td>GREEN / BLUE / YELLOW systems: pressure, engine pumps (GREEN 1-2, BLUE 3-4, YELLOW 2-4), reservoirs, temperature.</td></tr>
+    <tr><td>ECAM</td><td>Three sub-pages <strong>ELEC AC</strong>, <strong>ELEC DC</strong>, <strong>INS</strong>. They are <strong>clickable</strong>: GND PWR, AC/DC voltmeter selectors, batteries A/B, modes of the 3 INS (OFF / STBY / ALIGN / NAV / ATT, AUTO / MAN).</td></tr>
+    <tr><td>WHEELS</td><td>Tyres, brake temperatures, accumulator, pressures, parking brake, gear doors, nose wheel.</td></tr>
+    <tr><td>CABIN</td><td>Cabin plan: passengers, doors, holds, seat belts, no smoking, cabin temperature and altitude, hatches.</td></tr>
+    <tr><td>PLANE</td><td>Top view of the aircraft: gear, nose, reversers, fuel, CG.</td></tr>
+    <tr><td>WX</td><td>Departure and arrival: METAR, wind drawn on the runways, runways usable by Concorde (<code>BEST</code> = best one, <code>COURTE</code> = too short, orange), QNH, temperature, visibility.</td></tr>
+    <tr><td>FUEL PRED · JET</td><td>Shortcuts to FUEL PRED and JETTISON.</td></tr>
+  </table>
+  <div class="page" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+    <figure><img src="images/capture_statut_gen.png" alt="STATUS GEN"><figcaption>GEN</figcaption></figure>
+    <figure><img src="images/capture_statut_hyd.png" alt="STATUS HYD"><figcaption>HYD</figcaption></figure>
+    <figure><img src="images/capture_ecam_ac.png" alt="ECAM ELEC AC"><figcaption>ECAM ELEC AC</figcaption></figure>
+    <figure><img src="images/capture_ecam_dc.png" alt="ECAM ELEC DC"><figcaption>ECAM ELEC DC</figcaption></figure>
+    <figure><img src="images/capture_ecam_ins.png" alt="ECAM INS"><figcaption>ECAM INS</figcaption></figure>
+    <figure><img src="images/capture_statut_roues.png" alt="STATUS WHEELS"><figcaption>WHEELS</figcaption></figure>
+    <figure><img src="images/capture_statut_cabine.png" alt="STATUS CABIN"><figcaption>CABIN</figcaption></figure>
+    <figure><img src="images/capture_statut_meteo.png" alt="STATUS WX"><figcaption>WX</figcaption></figure>
+  </div>
+<!-- FIN: PAGE_STATUT -->
+
+<!-- SECTION: PAGE_DATA_INGENIEUR -->
+  <h3 id="p-data">DATA and ENGINEER</h3>
+  <div class="page">
+    <div>
+      <p><strong>DATA INDEX 1/2</strong>: on the left OPTIONS, SIMBRIEF, FUEL, FMS FILES, ENGINEER; on the right shortcuts DIRECT TO, FLIGHT PLAN, PERFORMANCE, RADIO NAV, FUEL PRED, INIT. <strong>2/2</strong> (<kbd>▼</kbd>): POSITION MONITOR (latitude, longitude, speeds, heading, altitude, Mach).</p>
+      <p><strong>ENGINEER</strong>:</p>
+      <table>
+        <tr><th>Line</th><th>Function</th></tr>
+        <tr><td>&lt;ENGINEER FUEL</td><td>Colimata fuel trim mode: GROUND, TAKEOFF, FLIGHT, DESCENT, LANDING, MANUAL (<code>*</code> = active mode). <em>MODE AUTO</em> ON: the mode follows the flight phase. <em>SUIVI PANNEAU</em> (panel follow): follows forward / aft transfers.</td></tr>
+        <tr><td>&lt;SEQ ENGINEER FO</td><td>Virtual crew: <em>START PLANE COPILOT</em> / <em>OFF PLANE COPILOT</em> (aircraft preparation and shutdown), <em>START ENGINE ENGINEER</em> / <em>OFF ENGINE ENGINEER</em> (engines). <strong>Press twice within 5 s</strong> for each sequence. The first officer and the engineer call out their actions and report by voice.</td></tr>
+        <tr><td>&lt;CG / THRUST</td><td>Plugin aerodynamic module: <em>AUTO CG</em> (simulated CG, elevons brought back to 0 above M1.0) and <em>REAL THRUST</em> (Concorde thrust up to M2), ON / OFF. Shows simulated CG shift, elevons, transfer, max thrust, engine / intake thrust, raw Colimata thrust, average lift/drag.</td></tr>
+      </table>
+    </div>
+    <figure><img src="images/capture_data.png" alt="DATA INDEX page"><figcaption>DATA INDEX 1/2.</figcaption></figure>
+  </div>
+<!-- FIN: PAGE_DATA_INGENIEUR -->
+
+<!-- SECTION: PAGE_OPTIONS -->
+  <h3 id="p-options">OPTIONS</h3>
+  <p>From <em>DATA &gt; OPTIONS</em> or <kbd>▼</kbd> from INIT. Settings are remembered.</p>
+  <div class="page">
+    <table>
+      <tr><th>Setting</th><th>Effect</th></tr>
+      <tr><td colspan="2"><strong>OPTIONS 1/2</strong></td></tr>
+      <tr><td>LANGUAGE</td><td>FRANCAIS / ENGLISH.</td></tr>
+      <tr><td>UNITS</td><td>Altitude FT / M, runway FT / M, distance NM / KM (FLs are never converted).</td></tr>
+      <tr><td>WEATHER OPTIONS</td><td>Turbulence alert ON / OFF and lead time (min), threshold LIGHT / MODERATE, automatic seat belts, weather on the VOL page, forecast turbulence.</td></tr>
+      <tr><td>FLIGHT PROFILE</td><td>VOL MACH: <em>STANDARD</em> (supersonic only over the sea) or <em>BYPASS</em> (everywhere); COAST MARGIN 15 / 25 / 40 NM; land / sea distances of the route.</td></tr>
+      <tr><td>AUTO ENGINEER</td><td>Automatic fuel trim by flight phase (ON / OFF).</td></tr>
+      <tr><td>MANAGED MODE</td><td>MANAGED THRUST ON / OFF; GERE (VNAV) ON / OFF; AUTO REVERSERS; <strong>REHEAT AUTO</strong>: reheats 1 and 2 on at M1.0 in the climb, off at M1.7; if you touch the reheats yourself, AUTO stays quiet (PILOT state) until on the ground.</td></tr>
+      <tr><td colspan="2"><strong>OPTIONS 2/2</strong></td></tr>
+      <tr><td>CREW VOICE</td><td>Voice ON / OFF, 3D sound, first officer and engineer voices, volume 0 to 100 %, listen.</td></tr>
+      <tr><td>SOUND</td><td>Audio alerts ON / OFF.</td></tr>
+      <tr><td>TERRAIN / WX</td><td>Terrain source (GRID + X-PLANE / X-PLANE ONLY / OFF), VAPP CORR (−20 to +40 kt), ground alert margin (500 to 5,000 ft), terrain and weather status, clear stored routes.</td></tr>
+      <tr><td>SIMGROUNDMAP</td><td>Shows the SimGroundMap map if it runs on the PC (address 127.0.0.1:8073).</td></tr>
+    </table>
+    <div>
+      <figure><img src="images/capture_options1.png" alt="OPTIONS 1/2"><figcaption>OPTIONS 1/2</figcaption></figure>
+      <figure><img src="images/capture_options2.png" alt="OPTIONS 2/2"><figcaption>OPTIONS 2/2</figcaption></figure>
+    </div>
+  </div>
+<!-- FIN: PAGE_OPTIONS -->
+
+</section>
+
+<!-- SECTION: SOMMEIL -->
+<section id="sommeil">
+  <h2>Sleep (MCDU hidden)</h2>
+  <p>The MCDU <strong>sleeps</strong> when:</p>
+  <ul>
+    <li>batteries 1 and 2 are OFF (black screen);</li>
+    <li>the cockpit screen is hidden (<em>Plugins &gt; Concorde_NGR &gt; Afficher / masquer l'ecran du cockpit</em>, show / hide cockpit screen);</li>
+    <li>the loaded aircraft is not the Concorde FXP (message <code>AVION NON CONCORDE FXP · MCDU EN VEILLE</code>).</li>
+  </ul>
+  <p>While asleep the MCDU <strong>no longer acts on the aircraft</strong>: no managed autopilot, no managed speed, no fuel management, no JETTISON. The plugin aerodynamic module (thrust, drag, CG, consumption) <strong>stays active</strong>. Switch a battery back on or show the screen again to wake it up.</p>
+  <div class="box warn"><strong>Warning:</strong> if you hide the screen in flight with GERE engaged, management stops. The Colimata autopilot keeps its last settings.</div>
+</section>
+<!-- FIN: SOMMEIL -->
+
+<!-- SECTION: SURVEILLANCE_FMS -->
+<section id="surveillance-fms">
+  <h2>X-Plane FMS watch</h2>
+  <p>The MCDU writes its plan into the X-Plane FMS, which the autopilot follows. If another tool changes that FMS (VATSIM / IVAO controller, X-Plane ATC, G1000, "direct to"…), the MCDU notices:</p>
+  <ul>
+    <li><strong>only the active waypoint changed</strong> (same plan): green message <code>DIR TO X-PLANE : X</code>; the MCDU follows;</li>
+    <li><strong>the plan changed</strong>: orange message <code>FMS X-PLANE MODIFIE (ATC ?)</code> and a page comparing both plans (number of waypoints, active waypoint, last waypoint).</li>
+  </ul>
+  <table>
+    <tr><th>Key</th><th>Effect</th></tr>
+    <tr><td>L6 &lt;REPRENDRE (take)</td><td>Adopts the X-Plane plan in the MCDU.</td></tr>
+    <tr><td>R6 RENVOYER&gt; (send back)</td><td>Keeps the MCDU plan and sends it back to the X-Plane FMS.</td></tr>
+  </table>
+  <p class="muted">The MCDU's own uploads do not trigger the alert.</p>
+</section>
+<!-- FIN: SURVEILLANCE_FMS -->
+
+<!-- SECTION: PILOTE_AUTO -->
+<section id="pilote-auto">
+  <h2>Autopilot option</h2>
+  <p><code>installer\installer_pilote_auto.bat</code> changes <strong>10 autopilot settings</strong> in <code>CONCORDE_FXP.acf</code> (<code>acf/_ott_*</code> lines: speed, roll and pitch response). These are the settings the MCDU computations (GERE mode) rely on: <strong>recommended</strong>. They are still being improved.</p>
+  <table>
+    <tr><th>Choice</th><th>Effect</th></tr>
+    <tr><td>1 Install</td><td>Backs up <code>CONCORDE_FXP.acf.avant_pa_ngr</code>, records the previous values, writes the 10 values and checks them.</td></tr>
+    <tr><td>2 Uninstall</td><td>Restores the values <strong>recorded on your PC</strong> (even if you had other settings, e.g. a mod).</td></tr>
+    <tr><td>3 Status</td><td>Tells whether the option is installed.</td></tr>
+  </table>
+  <p>Run it <strong>after</strong> <code>installer.bat</code>, with X-Plane closed. The 10 values (before / after) are listed in <code>installer\LIST_OF_CHANGES.txt</code>, section 5.</p>
+</section>
+<!-- FIN: PILOTE_AUTO -->
+
+<!-- SECTION: ECRAN_COCKPIT -->
+<section id="ecran-cockpit">
+  <h2>The screen in the cockpit</h2>
+  <p><code>installer.bat</code> adds the MCDU screen to the Concorde cockpit (<code>CONCORDE_FXP_cockpit.obj</code>, backup <code>.originalconcorde</code>) and installs the tablet around it. The screen is <strong>shown and clickable</strong> right in the cockpit.</p>
+  <ul>
+    <li><em>Plugins &gt; Concorde_NGR &gt; Afficher / masquer l'ecran du cockpit</em> (show / hide cockpit screen): shows or hides the screen. The choice is remembered between flights. <strong>Hidden screen = MCDU asleep</strong> (see <a href="#sommeil">Sleep</a>).</li>
+    <li><em>Plugins &gt; Concorde_NGR &gt; Afficher / masquer MCDU</em> (show / hide MCDU): opens the MCDU in an X-Plane window, in addition to the cockpit screen.</li>
+  </ul>
+  <p class="muted">Uninstalling (<code>installer.bat</code> choice 4) restores the original cockpit.</p>
+</section>
+<!-- FIN: ECRAN_COCKPIT -->
+
+<!-- SECTION: DEPANNAGE -->
+<section id="depannage">
+  <h2>Troubleshooting</h2>
+  <p class="muted">Plugin menu: <em>Plugins &gt; Concorde_NGR</em> (menu items are in French).</p>
+  <table>
+    <tr><th>Problem</th><th>Solution</th></tr>
+    <tr><td>Windows blocks a .bat ("Windows protected your PC")</td><td>Click <em>More info</em> then <em>Run anyway</em>. To avoid it: <strong>before extracting</strong>, right-click the zip &gt; Properties &gt; tick <em>Unblock</em> &gt; OK.</td></tr>
+    <tr><td>The antivirus quarantines a file (.bat or .xpl)</td><td>Restore and allow it: these files are harmless.</td></tr>
+    <tr><td>The MCDU stays black</td><td>Battery 1 or 2 ON. Check that the cockpit screen is not hidden (plugin menu).</td></tr>
+    <tr><td>The MCDU does not appear at all</td><td>Open <code>X-Plane 12\Log.txt</code>: it must contain <code>Loaded Concorde_NGR.xpl</code> and <code>libcef.dll pret</code>. Otherwise run <code>installer.bat</code> again and check that <code>Resources\plugins\Concorde_NGR\win_x64\Concorde_NGR.xpl</code> exists.</td></tr>
+    <tr><td>Page frozen or empty</td><td><em>Recharger la page MCDU</em> (reload page).</td></tr>
+    <tr><td><code>X-PLANE HORS LIGNE</code> or <code>FMS HORS LIGNE</code> (offline) at the bottom of the screen</td><td><em>Relancer le pont 8087</em> (restart bridge); if nothing changes: <em>Reinit complete (pont + page)</em>. Never install two MCDU plugins together (same port 8087).</td></tr>
+    <tr><td>Fuel not loaded (<code>A VERIFIER</code>)</td><td>Press <em>LOAD FUEL/PAX</em> again; check FOB on FUEL PRED.</td></tr>
+    <tr><td>The aircraft does not follow the MCDU plan</td><td>The X-Plane FMS was changed elsewhere: see <a href="#surveillance-fms">FMS watch</a> (RENVOYER).</td></tr>
+    <tr><td>GERE does nothing</td><td>The AP must be engaged, the aircraft above 1,000 ft AGL, and the MCDU not asleep.</td></tr>
+    <tr><td>No sound or voice</td><td>OPTIONS 2/2: SOUND = ON; CREW VOICE: voice ACTIVE, volume.</td></tr>
+  </table>
+  <div class="box"><strong>Reporting a bug:</strong> give your X-Plane version and attach <code>X-Plane 12\Log.txt</code> (taken right after the problem, before restarting X-Plane).</div>
+</section>
+<!-- FIN: DEPANNAGE -->
+
+<!-- SECTION: CREDITS -->
+<section id="credits">
+  <h2>Credits</h2>
+  <p>Concorde NGR, created by <strong>pierre.r</strong>. Licence CC BY-NC 4.0.</p>
+  <p>Exception: the airfoils CONCORDE_DELTA1_NGR_V5 and CONCORDE_DELTA2_NGR_V5 are licensed under CC BY 4.0: free to reuse, including in a payware add-on, provided you credit “Concorde NGR – Pierre Romi”.</p>
+</section>
+<!-- FIN: CREDITS -->
+
+<!-- SECTION: HISTORIQUE -->
+<section id="historique">
+  <h2>Version history</h2>
+  <table>
+    <tr><th>Version</th><th>Date</th><th>Changes</th></tr>
+    <tr><td>V1.0</td><td>11 Nov 2026</td><td>First complete manual: first flight, every page, sleep, FMS watch, autopilot option, cockpit screen, troubleshooting.</td></tr>
+  </table>
+</section>
+<!-- FIN: HISTORIQUE -->
+
+</main>
+<footer style="max-width:980px;margin:30px auto 0;color:var(--dim);font-size:13px">Concorde NGR · manual V1.0 · <a href="NOTICE_FR.html" style="color:var(--acc)">Version française</a></footer>
+</body>
+</html>

@@ -9,24 +9,21 @@ ACF original de reference : MD5 2a219391158d87e35bd5304b46c69254
   - Copie les fichiers ci-dessous (section 2). Un fichier existant different est sauvegarde en .originalconcorde.
   - Modifie les lignes de l'ACF ci-dessous (section 3). Rien d'autre dans l'ACF n'est touche.
   - Le fichier ACF est reecrit avec des fins de ligne Windows (CRLF) : sans effet pour X-Plane.
-  - Ajoute l'ecran du MCDU dans CONCORDE_FXP_cockpit.obj (options 1 et 2) : 4 sommets, 6 index, un bloc de 12 lignes,
-    compteur POINT_COUNTS +4 / +6 (donnees : ecran_cockpit.txt). Sauvegarde CONCORDE_FXP_cockpit.obj.originalconcorde.
-    L'ecran doit etre dans l'objet cockpit : X-Plane n'envoie les clics au plugin que pour cet objet.
   - Note ce qu'il a fait dans CONCORDE_FXP\ngr_installe.txt (sert a la desinstallation).
   - Propose (oui/non) de copier le plugin Concorde_NGR dans X-Plane 12\Resources\plugins\.
 
   Menu : 1 installation automatique (ACF original exact seulement)
          2 forcer cle par cle (ACF d'une autre version ou deja modifie ; les lignes absentes sont signalees)
          3 copier les fichiers seulement, l'ACF est modifie A LA MAIN avec cette liste
-         4 desinstaller (remet l'ACF et le cockpit .originalconcorde, retire les fichiers ajoutes, plugin au choix)
+         4 desinstaller (remet l'ACF .originalconcorde, retire les fichiers ajoutes, plugin au choix)
 
 2. FICHIERS COPIES DANS LE DOSSIER DE L'AVION (CONCORDE_FXP\)
-  objects\cockpit_v200\ngb_mcdu_cadre.obj   cadre 3D de la tablette du MCDU (l'ecran est ajoute dans le cockpit)
+  objects\cockpit_v200\ngb_mcdu_cadre.obj   tablette 3D du MCDU (utilise la texture du cockpit Colimata)
   airfoils\CONCORDE_DELTA1_NGR_V5.afl        profil d'aile declare dans l'ACF
   airfoils\CONCORDE_DELTA2_NGR_V5.afl        profil d'aile declare dans l'ACF
   Plugin (si accepte) : X-Plane 12\Resources\plugins\Concorde_NGR\ (dossier complet).
 
-3. LIGNES DE CONCORDE_FXP.acf MODIFIEES (15) ET AJOUTEES (13)
+3. LIGNES DE CONCORDE_FXP.acf MODIFIEES (25) ET AJOUTEES (13)
   Ligne = numero dans l'ACF original. Format : cle   ancienne valeur  ->  nouvelle valeur
   -- Profils d'aile (airfoils)
    11600  P _wing/0/_afl_file_1                CONCORDE_DELTA1.afl  ->  CONCORDE_DELTA1_NGR_V5.afl
@@ -44,6 +41,17 @@ ACF original de reference : MD5 2a219391158d87e35bd5304b46c69254
   -- Area rule du fuselage
     8671  P _body/0/_part_area_rule            0.949999988  ->  0.300000000
    10142  P _body/1/_part_area_rule            1.000000000  ->  0.300000000
+  -- Autres
+   27006  P acf/_ott_asi_kts_off_for_full_def  50.000000000  ->  60.000000000
+   27008  P acf/_ott_asi_thro_per_sec          0.400000006  ->  0.150000006
+   27015  P acf/_ott_phi_deg_off_for_full_def  13.000000000  ->  16.100000381
+   27016  P acf/_ott_phi_sec_into_future       5.400000095  ->  6.400000095
+   27017  P acf/_ott_phi_sec_to_tune           4.000000000  ->  13.000000000
+   27021  P acf/_ott_roll_rate                 6.900000095  ->  5.900000095
+   27022  P acf/_ott_roll_response             8.699999809  ->  6.699999809
+   27023  P acf/_ott_the_deg_off_for_full_def  15.000000000  ->  18.000000000
+   27024  P acf/_ott_the_deg_per_kt            0.010000000  ->  0.009999999
+   27025  P acf/_ott_the_sec_into_future       5.400000095  ->  6.000000000
   -- Tablette 3D : compteur d'objets
    10962  P _obja/count                        44  ->  45
   -- Tablette 3D : 13 lignes AJOUTEES juste apres la derniere ligne "P _obja/43/..." (ligne 10896 de l'original)
@@ -68,28 +76,8 @@ ACF original de reference : MD5 2a219391158d87e35bd5304b46c69254
   d. Tablette : lire la valeur de "P _obja/count" (N, 44 dans l'original). Ajouter les 13 lignes du bloc
      en remplacant 44 par N, apres la derniere ligne "P _obja/N-1/...", puis mettre "P _obja/count" a N+1.
   e. Enregistrer. Copier les fichiers de la section 2 (dossier CONCORDE_FXP du paquet).
-  f. Ecran : copier CONCORDE_FXP_cockpit.obj en .originalconcorde, puis avec installer\ecran_cockpit.txt :
-     lignes V apres le dernier VT ; 6 lignes IDX N,N+1,N+2,N,N+2,N+3 (N = 1er nombre de POINT_COUNTS) apres le dernier IDX ;
-     lignes A, puis "TRIS I 6" (I = dernier nombre de POINT_COUNTS), puis lignes B, apres le dernier ANIM_end ;
-     enfin POINT_COUNTS : N+4 et I+6.
-  Retour en arriere : remettre les fichiers .originalconcorde (ACF et cockpit) a leur place.
+  Retour en arriere : remettre CONCORDE_FXP.acf.originalconcorde a la place de CONCORDE_FXP.acf.
 
-5. OPTION : PILOTE AUTOMATIQUE NGR (installer_pilote_auto.bat)
-  Facultatif. Change 10 lignes acf/_ott_* (reglages du pilote automatique), encore en cours d'amelioration.
-  Lancer installer_pilote_auto.bat APRES installer.bat (sinon le mode 1 de installer.bat refuse : empreinte MD5 differente ;
-  utiliser alors son mode 2).
-  Menu : 1 Installer  2 Desinstaller  3 Etat  0 Quitter. X-Plane doit etre ferme.
-  Installer : sauvegarde CONCORDE_FXP.acf.avant_pa_ngr, valeurs d'avant notees dans pa_ngr_restauration.txt (a cote de l'ACF).
-  Desinstaller : remet les valeurs NOTEES (celles de votre ACF avant l'option, mod compris), pas forcement celles de Colimata.
-  Cle                                  Original      NGR
-  acf/_ott_asi_kts_off_for_full_def    50            60
-  acf/_ott_asi_thro_per_sec            0.400000006   0.150000006
-  acf/_ott_phi_deg_off_for_full_def    13            16.100000381
-  acf/_ott_phi_sec_into_future         5.400000095   6.400000095
-  acf/_ott_phi_sec_to_tune             4             13
-  acf/_ott_roll_rate                   6.900000095   5.900000095
-  acf/_ott_roll_response               8.699999809   6.699999809
-  acf/_ott_the_deg_off_for_full_def    15            18
-  acf/_ott_the_deg_per_kt              0.010000000   0.009999999
-  acf/_ott_the_sec_into_future         5.400000095   6.000000000
-  A la main (Plane Maker ou editeur de texte) : remplacer la valeur de ces 10 lignes "P cle valeur".
+5. PILOTE AUTOMATIQUE
+  Les 10 lignes acf/_ott_* de la section 3 sont incluses depuis la V1.1 (installer_pilote_auto.bat retire).
+  En vol, le plugin adapte la roll prediction et l'inclinaison max selon le Mach (MCDU : OPTIONS > MODE GERE, ON/OFF).

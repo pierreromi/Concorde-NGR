@@ -62,7 +62,7 @@
   <a href="#pages">The pages</a>
   <a href="#sommeil">Sleep</a>
   <a href="#surveillance-fms">FMS watch</a>
-  <a href="#pilote-auto">Autopilot option</a>
+  <a href="#pilote-auto">Autopilot</a>
   <a href="#ecran-cockpit">Cockpit screen</a>
   <a href="#depannage">Troubleshooting</a>
   <a href="#historique">History</a>
@@ -82,7 +82,7 @@
     <li><strong>Take-off speeds.</strong> <kbd>PERF</kbd>: V1 / VR / V2, runway, weight and <em>CG/TRIM</em> setting.</li>
     <li><strong>Engines.</strong> <em>SEQ ENGINEER FO &gt; START ENGINE ENGINEER</em> (press twice).</li>
     <li><strong>Before take-off: arm MANAGED.</strong> On the <kbd>ND</kbd>, press <em>GERE</em> (managed). It does nothing until the autopilot is engaged. <strong>Take-off is flown by hand.</strong></li>
-    <li><strong>After take-off: engage the autopilot.</strong> As soon as the AP is engaged, MANAGED takes over speed and V/S and follows the profile up to cruise. With the <em>REHEAT AUTO</em> option, reheat is on between M1.0 and M1.7.</li>
+    <li><strong>After take-off: engage the autopilot.</strong> As soon as the AP is engaged, MANAGED takes over speed and V/S and follows the profile up to cruise. With the <em>REHEAT AUTO</em> option, reheat is on between M1.0 and M1.7. Below FL100 the target is <strong>250 kt from take-off</strong>. Supersonic, MANAGED accelerates <strong>along the VMO</strong> like Air France: full thrust, the climb holds the speed, up to M1.7. At touchdown, MANAGED <strong>disconnects the autothrottles</strong> (message <code>A/THR OFF (TOUCHDOWN)</code>).</li>
     <li><strong>En route.</strong> <kbd>VOL</kbd> page (profile, terrain, weather) and <kbd>FUEL PRED</kbd> (fuel remaining at destination). MANAGED also flies the descent.</li>
     <li><strong>Approach and parking.</strong> Optionally, <em>ILS AUTO</em> on the ND sets the localizer course by itself as soon as the ILS is received: the approach is then flown on the ILS alone. At the gate: <em>OFF ENGINE ENGINEER</em>, then <em>OFF PLANE COPILOT</em>.</li>
   </ol>
@@ -108,11 +108,10 @@
         <tr><td>5</td><td>Quit</td></tr>
       </table>
       It adds the airfoils, the tablet and the MCDU screen in the cockpit, and backs up the original (<code>CONCORDE_FXP.acf.originalconcorde</code>). It then offers to copy the <code>Concorde_NGR</code> plugin into <code>X-Plane 12\Resources\plugins</code>: answer <strong>Y</strong>.</li>
-    <li><strong>Recommended:</strong> run <code>installer\installer_pilote_auto.bat</code>, choice <strong>1</strong>: autopilot settings the MCDU calculations rely on (see <a href="#pilote-auto">Autopilot option</a>).</li>
     <li><strong>Start X-Plane</strong>, load the Concorde FXP, battery 1 or 2 ON: the MCDU powers up.</li>
   </ol>
   <h3>Uninstall</h3>
-  <p><code>installer_pilote_auto.bat</code> choice 2, then <code>installer.bat</code> choice 4. The aircraft goes back to exactly the original. Details of every change: <code>installer\LIST_OF_CHANGES.txt</code>.</p>
+  <p><code>installer.bat</code> choice 4. The aircraft goes back to exactly the original. Details of every change: <code>installer\LIST_OF_CHANGES.txt</code>.</p>
   <h3>Check that it works</h3>
   <p>In <code>X-Plane 12\Log.txt</code>, look for <code>Loaded Concorde_NGR.xpl</code> and <code>libcef.dll pret</code>.</p>
 </section>
@@ -173,18 +172,18 @@
   <div class="page">
     <table>
       <tr><th>Key</th><th>Line</th><th>Function</th></tr>
-      <tr><td>L1</td><td>SPD KT/MACH</td><td>Cruise speed or Mach: <code>350/</code>, <code>/0.93</code>, <code>350/0.93</code>, <code>M2.02</code>. <kbd>CLR</kbd> restores the default.</td></tr>
+      <tr><td>L1</td><td>SPD KT/MACH</td><td>Cruise speed or Mach: <code>350/</code>, <code>/0.93</code>, <code>350/0.93</code>, <code>M2.02</code>. <kbd>CLR</kbd> clears it: the aircraft then flies the <strong>COST INDEX</strong> Mach. A speed entered here always has priority over the CI.</td></tr>
       <tr><td>L2</td><td>&lt;SIMBRIEF</td><td>Opens the SIMBRIEF page.</td></tr>
       <tr><td>L3</td><td>&lt;FMS FILES</td><td>List of X-Plane <code>.fms</code> plans.</td></tr>
-      <tr><td>L4</td><td>&lt;DEPARTURE</td><td>Departure runway and SID.</td></tr>
-      <tr><td>L5</td><td>&lt;FMS X-PLANE &gt; MCDU</td><td>Takes the plan already entered in the X-Plane FMS and opens F-PLN.</td></tr>
-      <tr><td>L6</td><td>COST INDEX</td><td>10 to 200. <span class="muted">Reserved: its full effect comes in a future update.</span></td></tr>
+      <tr><td>L4</td><td>COST INDEX</td><td><code>0</code> to <code>200</code>, <strong>100 = optimal flight: as fast as the nose temperature allows</strong> (125 °C, 2 °C below the 127 °C TMO), from the real air: about M2.05 in standard atmosphere, M2.14 at −65 °C, up to M2.30 in very cold air. CI 200 = up to 127 °C; lower = slower, down to M1.80 (CI 0). Shows the resulting Mach. <kbd>CLR</kbd> = 100. Empty key = <a href="#p-modecrz">CRUISE MODE</a> page.</td></tr>
+      <tr><td>L5</td><td>CRZ MODE</td><td>Cruise mode: <strong>CRUISE CLIMB</strong> or <strong>LEVEL</strong>. The key opens the <a href="#p-modecrz">CRUISE MODE</a> page.</td></tr>
+      <tr><td>L6</td><td>&lt;DEPARTURE</td><td>Departure runway and SID.</td></tr>
       <tr><td>R1</td><td>FROM/TO</td><td>Plan departure / arrival (green when loaded, orange when empty).</td></tr>
-      <tr><td>R2</td><td>CRZ FL</td><td>Cruise level, <code>FL100</code> to <code>FL650</code> (e.g. <code>FL580</code>).</td></tr>
+      <tr><td>R2</td><td>CRZ FL</td><td>Cruise level, <code>FL100</code> to <code>FL650</code> (e.g. <code>FL580</code>). The cockpit ALT selector takes the same value.</td></tr>
       <tr><td>R3</td><td>FMS LOAD&gt;</td><td>Passengers / fuel loading for a <code>.fms</code> plan.</td></tr>
-      <tr><td>R4</td><td>WIND&gt;</td><td>Flight winds (see below). Above it: <code>FMS ONLINE</code> / <code>OFFLINE</code>.</td></tr>
+      <tr><td>R4</td><td>WIND&gt;</td><td>Flight winds (see below).</td></tr>
       <tr><td>R5</td><td>ARRIVAL&gt;</td><td>Approach, transition and STAR.</td></tr>
-      <tr><td>R6</td><td>OPTI CRUISE ALT</td><td>Advised level (magenta). The key opens the detail: weight, ISA deviation, wind, best <strong>subsonic</strong> and <strong>supersonic</strong> Mach/FL, distance per tonne and fuel at destination. <code>*</code> = estimated value.</td></tr>
+      <tr><td>R6</td><td>OPTI CRUISE ALT</td><td>Advised level (magenta). The key opens the detail: weight, ISA deviation, wind, best <strong>subsonic</strong> and <strong>supersonic</strong> Mach/FL, distance per tonne and fuel at destination. The supersonic level comes from the <strong>Air France</strong> cruise-climb table (weight × ISA deviation). <code>*</code> = estimated value.</td></tr>
     </table>
     <figure><img src="images/capture_init.png" alt="INIT page"><figcaption>INIT 1/2. <kbd>▼</kbd> leads to OPTIONS.</figcaption></figure>
   </div>
@@ -199,13 +198,13 @@
       <tr><td>L1</td><td>PILOT ID</td><td>Your SimBrief ID (digits only). It is remembered.</td></tr>
       <tr><td>R1</td><td>STATUS</td><td><code>OK</code>, <code>ATTENTE</code> (waiting), <code>ERREUR</code> (error), <code>RESEAU</code> (no internet).</td></tr>
       <tr><td>R2</td><td>RESET F-PLN&gt;</td><td>Clears the MCDU plan and the X-Plane FMS. <strong>Press twice within 5 s</strong> (the first press arms it, in orange).</td></tr>
-      <tr><td>—</td><td>BLOCK NGB/SB</td><td>Fuel computed by NGR / SimBrief fuel (information).</td></tr>
+      <tr><td>—</td><td>BLOCK NGB/SB</td><td>Fuel computed by NGR / SimBrief fuel (information). If the computation exceeds the <strong>capacity (95 t)</strong>: orange title <code>FUEL&gt;CAPACITY</code> (or <code>FUEL INSUFFICIENT</code> if the reserve is no longer covered) and value <code>95.0 RES-x.x</code> = missing reserve.</td></tr>
       <tr><td>—</td><td>MACH/FL</td><td>Mach and level of the NGR computation (orange if the flight stays subsonic).</td></tr>
       <tr><td>—</td><td>ZFW/TOW · PAX/DIST</td><td>Weights, passengers, distance.</td></tr>
       <tr><td>L5</td><td>&lt;WIND REQUEST</td><td>Loads the SimBrief winds.</td></tr>
       <tr><td>R5</td><td>INSERT F-PLN&gt;</td><td>Inserts the route. <strong>SID and STAR are not inserted</strong>: pick them afterwards with DEPARTURE / ARRIVAL.</td></tr>
       <tr><td>L6</td><td>&lt;INIT REQUEST</td><td>Fetches your latest SimBrief plan.</td></tr>
-      <tr><td>R6</td><td>LOAD FUEL/PAX&gt;</td><td>Loads passengers and cargo (SimBrief) and the <strong>fuel computed by NGR</strong> (SimBrief only if the computation is impossible). 20 s check: <code>CHARGE</code> (loaded, green) or <code>A VERIFIER</code> (to check, orange).</td></tr>
+      <tr><td>R6</td><td>LOAD FUEL/PAX&gt;</td><td>Loads passengers and cargo (SimBrief) and the <strong>fuel computed by NGR</strong> (SimBrief only if the computation is impossible). 20 s check: <code>CHARGE</code> (loaded, green) or <code>A VERIFIER</code> (to check, orange). Above 95 t, 95 t are loaded and the orange message <code>FUEL &gt; CAPACITY : RESERVE -x.xT</code> is shown.</td></tr>
     </table>
     <figure><img src="images/capture_simbrief.png" alt="SIMBRIEF page"><figcaption>SIMBRIEF: plan loaded, NGR / SimBrief fuel.</figcaption></figure>
   </div>
@@ -227,9 +226,9 @@
       <tr><td>L1</td><td>PAX</td><td>0 to 100.</td></tr>
       <tr><td>R1</td><td>CARGO</td><td>0 to 4.3 t.</td></tr>
       <tr><td>—</td><td>ZFW/TOW · DIST/WIND</td><td>Weights (orange if too heavy), distance and head (HD) or tail (TL) wind.</td></tr>
-      <tr><td>—</td><td>TRIP/RESERVE · MACH/FL</td><td>Trip fuel, reserve, computed Mach/FL.</td></tr>
-      <tr><td>—</td><td>COMPUTED FUEL</td><td>Fuel computed by NGR.</td></tr>
-      <tr><td>L5</td><td>FUEL TO LOAD</td><td>Defaults to the computation; you can enter 1 to 95 t. <kbd>CLR</kbd> goes back to the computation.</td></tr>
+      <tr><td>—</td><td>TRIP/RESERVE · MACH/FL</td><td>Trip fuel, reserve, computed Mach/FL. Air France reserves (TU2B manual): alternate 6.0 t, 30 min holding 6.4 t, 5 % route reserve, taxi 1 t.</td></tr>
+      <tr><td>—</td><td>COMPUTED FUEL</td><td>Fuel computed by NGR. Above 95 t: same orange alert as SIMBRIEF.</td></tr>
+      <tr><td>L5</td><td>FUEL TO LOAD</td><td>Defaults to the computation; you can enter 1 to 95 t. <kbd>CLR</kbd> goes back to the computation. Loading never exceeds 95 t.</td></tr>
       <tr><td>R4</td><td>FUEL ONLY&gt;</td><td>Loads the fuel only.</td></tr>
       <tr><td>R5</td><td>WIND REQUEST&gt;</td><td>Requests the winds again.</td></tr>
       <tr><td>L6</td><td>&lt;F-PLN</td><td>Opens the flight plan.</td></tr>
@@ -322,11 +321,42 @@
     <tr><th>Key</th><th>Line</th><th>Function</th></tr>
     <tr><td>L1</td><td>OPTI MACH CRZ</td><td>Optimum Mach. Entering <code>FL560</code> changes the level.</td></tr>
     <tr><td>R1</td><td>OPTI CRUISE ALT</td><td>Optimum level (magenta). Empty key = adopt this level; <code>FL560</code> = set it.</td></tr>
-    <tr><td>R2</td><td>DIST</td><td>Remaining distance; the key opens the OPTI CRUISE ALT detail.</td></tr>
+    <tr><td>R2</td><td>DIST</td><td>Remaining distance; the key opens the OPTI CRUISE ALT detail (its R3 key <em>CRZ MODE</em> opens the CRUISE MODE page).</td></tr>
     <tr><td>—</td><td>FOB/GW · EFOB/RES</td><td>Fuel, weight; fuel at destination / reserve.</td></tr>
     <tr><td>—</td><td>ACT FF/AUTON · TRIP EST · MOY FF/TEMPS</td><td>Current fuel flow and endurance, estimated trip, average flow and flight time.</td></tr>
   </table>
   <p><strong>APPR (approach)</strong>: VAPP (with wind correction), VLS, landing weight (orange above MLW), destination and approach, nose 12.5° / visor down, attitude ~10° on approach and ~12° at touchdown, fuel trim LANDING, reminders 60 ft THR IDLE and REVERSE at touchdown.</p>
+  <h3 id="p-modecrz">CRUISE MODE</h3>
+  <p>Access: <em>INIT</em> key L5 (or empty L4), or <em>PERF CRZ &gt; OPTI CRUISE ALT</em> key R3. Compares, from the present position to the descent (remaining climb and wind included), flight time, fuel burn and fuel at arrival (EFOB, orange below reserves):</p>
+  <table>
+    <tr><th>Key</th><th>Line</th><th>Role</th></tr>
+    <tr><td>L2</td><td>&lt;CRUISE CLIMB TU2B</td><td>Cruise climb at optimum speed (M2, or less when the air is hot or the aircraft heavy). Values from the <strong>real Air France table</strong> (TU2B manual, 11.35.20). The planned level climbs by itself in 10 FL steps as weight decreases; the vertical profile and T/D follow.</td></tr>
+    <tr><td>L3</td><td>&lt;LEVEL</td><td>Stays at the planned level (e.g. imposed by ATC): automatic climb off. <code>*</code> = estimated value.</td></tr>
+    <tr><td>—</td><td>LEVEL VS CLIMB</td><td>Extra (or saved) fuel and minutes when flying level.</td></tr>
+    <tr><td>L5</td><td>COST INDEX</td><td>CI <code>0</code>–<code>200</code> and resulting Mach (same as INIT L4).</td></tr>
+    <tr><td>R5</td><td>ETA / REQ ARR</td><td>Arrival time with this CI (orange if EFOB falls below reserves). Enter a required time, e.g. <code>1745</code>: the MCDU picks the <strong>lowest CI</strong> that arrives on time. Not reachable even at CI 200 = orange message.</td></tr>
+    <tr><td>L6 / R6</td><td>&lt;OPTI · VS CI 100</td><td>Back to the OPTI CRUISE ALT detail · minutes and tonnes more or less than CI 100.</td></tr>
+  </table>
+  <p>The mode shown is always the real state: entering a level by hand on PERF CRZ switches to LEVEL; an empty key on OPTI CRUISE ALT returns to CRUISE CLIMB.</p>
+  <p>The best subsonic Mach/level (overland) is still shown on OPTI CRUISE ALT.</p>
+  <p id="p-altsel"><strong>ALT selector = ATC clearance</strong> (as on the A320). The managed profile never goes past the selector. The MCDU writes it in two cases only: a level entered in the MCDU (INIT CRZ FL, PERF CRZ), and the <strong>COPILOT ALT</strong> below.</p>
+  <p id="p-copilote"><strong>COPILOT ALT</strong> (OPTIONS &gt; MANAGED MODE, ON by default): like a first officer, the MCDU <strong>sets</strong> the limit of each step on the selector itself, <strong>once</strong> per step (never in a loop), with the message <code>COPILOT: ALT 6000 (CSTR xxx)</code>. You see it on the selector; if you turn it, that is <strong>your clearance</strong> and the copilot leaves the selector alone until the next phase (climb, cruise, descent).</p>
+  <table>
+    <tr><th>Step</th><th>The copilot sets</th></tr>
+    <tr><td>Climb (after take-off, AP engaged)</td><td>The next "at or below" constraint of the <strong>SID</strong> (e.g. 6000 departing London); once the waypoint is passed, the next one; otherwise the <strong>CRZ FL</strong> (only if the selector is lower).</td></tr>
+    <tr><td>CRUISE CLIMB</td><td><strong>FL600</strong>, ceiling of the cruise climb (only if the selector is lower).</td></tr>
+    <tr><td>Descent (TOD)</td><td>The next "at or above" constraint of the STAR or approach; once the waypoint is passed, the next one; then the altitude of the first approach waypoint.</td></tr>
+  </table>
+  <p><strong>SID constraint lifted by the selector</strong>: in the climb, if you turn the selector <strong>above</strong> an "at or below" SID constraint (−, @ or between), it is deleted from the F-PLN (message <code>SID CSTR LIFTED (ALT SEL)</code>) and the climb resumes: that is the ATC clearance. Tip: set the <strong>CRZ FL</strong> (an ALT above the CRZ FL becomes the CRZ FL). A value set on the ground lifts nothing. STAR, approach and "at or above" constraints are never lifted this way (right key of the waypoint + <code>CLR</code> on the F-PLN page).</p>
+  <p>The selector then sets the limits:</p>
+  <ul>
+    <li><strong>Climb</strong>: ALT below CRZ FL (e.g. "maintain FL250") = level-off at that ALT, message <code>PILOT ALT FL250 &lt; CRZ FL…</code>. Raise the ALT to resume the climb.</li>
+    <li><strong>Cruise</strong>: a new ALT becomes the CRZ FL, LEVEL mode. In CRUISE CLIMB, a <strong>higher</strong> ALT is a ceiling: set e.g. FL600 and the aircraft climbs by itself in 10 FL steps up to that level at most. Otherwise, message <code>CRUISE CLIMB: RAISE ALT SEL</code>.</li>
+    <li><strong>Descent</strong>: the aircraft does not descend below the selected ALT.</li>
+  </ul>
+  <p><strong>INIT 2/2</strong> (up / down arrows from INIT): <code>&lt;FMS X-PLANE &gt; MCDU</code> (takes the X-Plane FMS plan), <code>FMS ONLINE</code> / <code>OFFLINE</code> status, then <code>TERRAIN OPTIONS&gt;</code>.</p>
+  <p><strong>Supersonic fuel burn.</strong> Above Mach 1, fuel flow is computed from the <strong>real thrust</strong> and the Olympus 593 specific consumption, corrected for temperature. It is calibrated on the Air France tables and shown on the fuel flow gauges (nothing hidden). FUEL PRED, PROG and OPTI use the same calculation.</p>
+  <p><strong>Maximum speed: the nose temperature.</strong> As on the real Concorde, the limit is the <strong>127 °C TMO</strong> (TU2B manual), computed from the real outside air: in cold air you can fly faster than M2. The machmeter maximum Mach needle is set to M2.40 and the <strong>total temperature</strong> shown in the cockpit is the one computed by NGR (Colimata's depended on Mach only). MCDU alarm: orange <code>NOSE TEMP NEAR TMO</code> at 126.5 °C, red <code>TMO EXCEEDED : REDUCE MACH</code> at 127 °C. VMO stays Colimata's (535 kt at high altitude). Above M2.03, if Colimata cuts its thrust (its former ceiling around M2.02-2.20), NGR keeps it going. Do not press <em>AP MAX CRUISE</em> (it caps Colimata at M2.02): the CRUISE checklist asks <code>AP MAX CRUISE.....OFF</code>.</p>
 <!-- FIN: PAGE_PERF -->
 
 <!-- SECTION: PAGE_PROG -->
@@ -413,6 +443,7 @@
         <tr><td>ARC / ROSE / PLAN</td><td>Changes the display mode. In PLAN, <code>◄ PT</code> / <code>PT ►</code> step through the plan waypoints.</td></tr>
         <tr><td>RNG− / RNG+</td><td>Range (also with the mouse wheel).</td></tr>
         <tr><td>CSTR · TFC · VOR1 · VOR2 · ADF · ILS</td><td>Shows constraints, traffic, VOR/ADF needles, ILS rose.</td></tr>
+        <tr><td>WPT · VOR.D · NDB · ARPT</td><td>As on Airbus: waypoints (range 40 NM or less), VOR / VOR-DME / DME, NDB, airports around the aircraft (magenta). <strong>ARPT</strong> only shows airfields where Concorde can land <strong>at its current weight</strong> (our performance: 2,438 m at 111 t at sea level); <strong>grey</strong> = emergency landing only (runway ≥ 2,500 m).</td></tr>
         <tr><td>DIR TO · SURV · VOL</td><td>Shortcuts to DIR TO, the transponder/TCAS page and the VOL page.</td></tr>
       </table>
       <p><strong>Middle:</strong> the <strong>alarms</strong> (ALARM, red/orange) and the phase <strong>checklist</strong> (<code>◄</code> <code>▶</code> to change list, <code>✔</code> to confirm; lines tick themselves when the aircraft confirms them).</p>
@@ -424,7 +455,7 @@
         <tr><td>LAND</td><td>Autoland.</td></tr>
         <tr><td>ILS AUTO</td><td>Option: sets the localizer course by itself as soon as the ILS is received; the approach is then flown on the ILS alone.</td></tr>
         <tr><td>WX</td><td>Shows the cockpit weather radar behind the ND (range = radar selector).</td></tr>
-        <tr><td><strong>GERE</strong></td><td>Managed mode: speed + V/S following the profile, from climb to descent. Arm it <strong>before take-off</strong>: it acts as soon as the AP is engaged (above 1,000 ft AGL). The text on the right gives the target (SPD, ALT, V/S, segment).</td></tr>
+        <tr><td><strong>GERE</strong></td><td>Managed mode: speed + V/S following the profile, from climb to descent. Arm it <strong>before take-off</strong>: it acts as soon as the AP is engaged (above 1,000 ft AGL). The text on the right gives the target (SPD, ALT, V/S, segment). Below FL100: 250 kt (also on go-around). At touchdown: autothrottles disconnected.</td></tr>
       </table>
     </div>
     <figure><img src="images/capture_nd.png" alt="ND page"><figcaption>ND in ILS ROSE on the ground: alarms, STARTUP checklist, AP and GERE buttons.</figcaption></figure>
@@ -507,7 +538,7 @@
       <tr><td>WEATHER OPTIONS</td><td>Turbulence alert ON / OFF and lead time (min), threshold LIGHT / MODERATE, automatic seat belts, weather on the VOL page, forecast turbulence.</td></tr>
       <tr><td>FLIGHT PROFILE</td><td>VOL MACH: <em>STANDARD</em> (supersonic only over the sea) or <em>BYPASS</em> (everywhere); COAST MARGIN 15 / 25 / 40 NM; land / sea distances of the route.</td></tr>
       <tr><td>AUTO ENGINEER</td><td>Automatic fuel trim by flight phase (ON / OFF).</td></tr>
-      <tr><td>MANAGED MODE</td><td>MANAGED THRUST ON / OFF; GERE (VNAV) ON / OFF; AUTO REVERSERS; <strong>REHEAT AUTO</strong>: reheats 1 and 2 on at M1.0 in the climb, off at M1.7; if you touch the reheats yourself, AUTO stays quiet (PILOT state) until on the ground.</td></tr>
+      <tr id="p-optgere"><td>MANAGED MODE</td><td>MANAGED THRUST ON / OFF; GERE (VNAV) ON / OFF; AUTO REVERSERS; <strong>REHEAT AUTO</strong>: reheats 1 and 2 on at M1.0 in the climb, off at M1.7; if you touch the reheats yourself, AUTO stays quiet (PILOT state) until on the ground; <strong>COPILOT ALT</strong> ON / OFF (see <a href="#p-copilote">Copilot ALT</a>).; <strong>AP BY SPEED</strong> ON / OFF: autopilot maximum bank angle from the Mach (30° at low speed, 25° high subsonic, 20° supersonic), adjustable on the right (<code>30/25/20</code>); a message is shown at each change; <strong>ROLL PREDICTION</strong> ON / OFF and <strong>PRED SUB/SUP</strong> (<code>10/17</code>): autopilot roll anticipation from the Mach (see <a href="#pilote-auto">Autopilot</a>).</td></tr>
       <tr><td colspan="2"><strong>OPTIONS 2/2</strong></td></tr>
       <tr><td>CREW VOICE</td><td>Voice ON / OFF, 3D sound, first officer and engineer voices, volume 0 to 100 %, listen.</td></tr>
       <tr><td>SOUND</td><td>Audio alerts ON / OFF.</td></tr>
@@ -556,15 +587,13 @@
 
 <!-- SECTION: PILOTE_AUTO -->
 <section id="pilote-auto">
-  <h2>Autopilot option</h2>
-  <p><code>installer\installer_pilote_auto.bat</code> changes <strong>10 autopilot settings</strong> in <code>CONCORDE_FXP.acf</code> (<code>acf/_ott_*</code> lines: speed, roll and pitch response). These are the settings the MCDU computations (GERE mode) rely on: <strong>recommended</strong>. They are still being improved.</p>
-  <table>
-    <tr><th>Choice</th><th>Effect</th></tr>
-    <tr><td>1 Install</td><td>Backs up <code>CONCORDE_FXP.acf.avant_pa_ngr</code>, records the previous values, writes the 10 values and checks them.</td></tr>
-    <tr><td>2 Uninstall</td><td>Restores the values <strong>recorded on your PC</strong> (even if you had other settings, e.g. a mod).</td></tr>
-    <tr><td>3 Status</td><td>Tells whether the option is installed.</td></tr>
-  </table>
-  <p>Run it <strong>after</strong> <code>installer.bat</code>, with X-Plane closed. The 10 values (before / after) are listed in <code>installer\LIST_OF_CHANGES.txt</code>, section 5.</p>
+  <h2>Autopilot</h2>
+  <p><code>installer.bat</code> also changes <strong>10 autopilot settings</strong> in <code>CONCORDE_FXP.acf</code> (<code>acf/_ott_*</code> lines: speed, roll and pitch response). The MCDU calculations (MANAGED mode) rely on them. Since V1.1 they are part of the installation (no more <code>installer_pilote_auto.bat</code>); uninstall (choice 4) puts them back as in the original. Values before / after: <code>installer\LIST_OF_CHANGES.txt</code>.</p>
+  <p>In flight, the plugin adapts two settings to the Mach number, each switchable <strong>ON / OFF</strong> in <a href="#p-optgere">OPTIONS &gt; MANAGED MODE</a> (remembered, even without showing the MCDU):</p>
+  <ul>
+    <li><strong>AP BY SPEED</strong>: maximum bank 30° at low speed, 25° high subsonic, 20° supersonic.</li>
+    <li><strong>ROLL PREDICTION</strong>: roll anticipation: original value below M0.60, 10 at M0.95, 17 above M1.60 (adjustable <code>PRED SUB/SUP</code>). On the ground the original value is restored. If you change the roll prediction yourself in X-Plane's autopilot constants window, the plugin leaves it alone until the next landing. <em>Experimental</em>: if in doubt, set it OFF.</li>
+  </ul>
 </section>
 <!-- FIN: PILOTE_AUTO -->
 
@@ -588,9 +617,10 @@
     <tr><th>Problem</th><th>Solution</th></tr>
     <tr><td>Windows blocks a .bat ("Windows protected your PC")</td><td>Click <em>More info</em> then <em>Run anyway</em>. To avoid it: <strong>before extracting</strong>, right-click the zip &gt; Properties &gt; tick <em>Unblock</em> &gt; OK.</td></tr>
     <tr><td>The antivirus quarantines a file (.bat or .xpl)</td><td>Restore and allow it: these files are harmless.</td></tr>
-    <tr><td>The MCDU stays black</td><td>Battery 1 or 2 ON. Check that the cockpit screen is not hidden (plugin menu).</td></tr>
+    <tr><td>The MCDU stays black</td><td>Battery 1 or 2 ON. Check that the cockpit screen is not hidden (plugin menu). If the bottom of the screen shows <code>X-PLANE HORS LIGNE (API 8086)</code>: the page cannot read X-Plane; check that no firewall or antivirus blocks X-Plane and open <code>http://127.0.0.1:8086/api/capabilities</code> in a browser (X-Plane running): it must show an answer.</td></tr>
+    <tr><td>NGR picture with <code>BATTERY UNREADABLE</code> and a <strong>START NGR</strong> button</td><td>The MCDU cannot read the aircraft battery (neither through the plugin nor through X-Plane). Click START NGR: the MCDU switches on and stays on. Please report it on Discord with your Log.txt.</td></tr>
     <tr><td>The MCDU does not appear at all</td><td>Open <code>X-Plane 12\Log.txt</code>: it must contain <code>Loaded Concorde_NGR.xpl</code> and <code>libcef.dll pret</code>. Otherwise run <code>installer.bat</code> again and check that <code>Resources\plugins\Concorde_NGR\win_x64\Concorde_NGR.xpl</code> exists.</td></tr>
-    <tr><td>Page frozen or empty</td><td><em>Recharger la page MCDU</em> (reload page).</td></tr>
+    <tr><td>Page frozen or empty</td><td><em>Recharger la page MCDU</em> (reload page), <strong>preferably on the ground</strong>: in flight, reloading resets MANAGED guidance, and X-Plane has already crashed during an in-flight reload (23/11/2026).</td></tr>
     <tr><td><code>X-PLANE HORS LIGNE</code> or <code>FMS HORS LIGNE</code> (offline) at the bottom of the screen</td><td><em>Relancer le pont 8087</em> (restart bridge); if nothing changes: <em>Reinit complete (pont + page)</em>. Never install two MCDU plugins together (same port 8087).</td></tr>
     <tr><td>Fuel not loaded (<code>A VERIFIER</code>)</td><td>Press <em>LOAD FUEL/PAX</em> again; check FOB on FUEL PRED.</td></tr>
     <tr><td>The aircraft does not follow the MCDU plan</td><td>The X-Plane FMS was changed elsewhere: see <a href="#surveillance-fms">FMS watch</a> (RENVOYER).</td></tr>
@@ -615,11 +645,12 @@
   <table>
     <tr><th>Version</th><th>Date</th><th>Changes</th></tr>
     <tr><td>V1.0</td><td>11 Nov 2026</td><td>First complete manual: first flight, every page, sleep, FMS watch, autopilot option, cockpit screen, troubleshooting.</td></tr>
+    <tr><td>V1.1</td><td>20/11/2026</td><td>Air France reserves; fuel alert above capacity (95 t); MANAGED: 250 kt at take-off, supersonic acceleration along the VMO, autothrottles disconnected at touchdown; maximum speed from the nose temperature (127 °C TMO, real air), Mach needle at 2.40, TMO alarm; COST INDEX 100 = as fast as the temperature allows; CRUISE checklist: AP MAX CRUISE OFF.; COST INDEX 0–200 (100 = optimum, 200 = M2.04) with required arrival time; ALT selector = ATC clearance; INIT 2/2; CRUISE MODE and OPTI level from the Air France table; supersonic fuel burn computed from thrust; ND: WPT, VOR.D, NDB, ARPT buttons (airports by weight); OPTI page reorganised, single values centred on their key, SQWK code below the aircraft (SURV). 23/11: COPILOT ALT (the MCDU sets the limit of each step on the selector); SID constraint lifted by turning the selector; OPTI level from the wind at each level (FL450-600, jet stream) and the COST INDEX (100 economy, 150 balance, 200 speed); wind used up to FL530; cruise descent to a better wind with the ALT SEL; no more drops or pitch-ups in cruise and at TOD (plugin); AP BY SPEED (max bank 30/25/20°); ROLL PREDICTION by Mach (experimental, ON/OFF); dark screen: battery read by the plugin + START NGR fallback button; single installer (autopilot settings included in installer.bat).</td></tr>
   </table>
 </section>
 <!-- FIN: HISTORIQUE -->
 
 </main>
-<footer style="max-width:980px;margin:30px auto 0;color:var(--dim);font-size:13px">Concorde NGR · manual V1.0 · <a href="NOTICE_FR.html" style="color:var(--acc)">Version française</a></footer>
+<footer style="max-width:980px;margin:30px auto 0;color:var(--dim);font-size:13px">Concorde NGR · manual V1.1 · <a href="NOTICE_FR.html" style="color:var(--acc)">Version française</a></footer>
 </body>
 </html>

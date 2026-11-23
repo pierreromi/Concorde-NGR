@@ -15,18 +15,16 @@ X-Plane doit etre FERME pendant l'installation.
    - il ajoute les profils d'aile et la tablette, sauvegarde l'original
      (CONCORDE_FXP.acf.originalconcorde), puis propose de copier le plugin
      Concorde_NGR dans X-Plane 12\Resources\plugins : repondre O.
-3. CONSEILLE : lancer installer\installer_pilote_auto.bat, option 1
-   (reglages du pilote automatique sur lesquels s'appuient les calculs du MCDU).
-   Se retire avec l'option 2.
-4. Demarrer X-Plane, charger le Concorde FXP, batterie 1 ou 2 sur ON : le MCDU s'allume.
-5. Notice d'emploi : ouvrir notice\NOTICE_FR.html dans un navigateur (premier vol + toutes les pages).
+   Il regle aussi le pilote automatique (10 reglages, plus de installer_pilote_auto.bat depuis la V1.1).
+3. Demarrer X-Plane, charger le Concorde FXP, batterie 1 ou 2 sur ON : le MCDU s'allume.
+4. Notice d'emploi : ouvrir notice\NOTICE_FR.html dans un navigateur (premier vol + toutes les pages).
 
 Si Windows bloque un .bat ("Windows a protege votre ordinateur") : cliquer "Informations
 complementaires" puis "Executer quand meme". Pour l'eviter : AVANT d'extraire, clic droit sur le zip >
 Proprietes > cocher "Debloquer" > OK. Si l'antivirus met un fichier en quarantaine (.bat ou .xpl),
 le restaurer et l'autoriser : ces fichiers ne contiennent rien de dangereux.
 
-Desinstaller : installer_pilote_auto.bat option 2, puis installer.bat option 4.
+Desinstaller : installer.bat option 4.
 Detail de chaque modification : installer\LISTE_DES_MODIFICATIONS.txt
 Bug : indiquer la version d'X-Plane et joindre X-Plane 12\Log.txt.
 
@@ -52,16 +50,15 @@ X-Plane must be CLOSED during installation.
    - it adds the airfoils and the tablet, backs up the original
      (CONCORDE_FXP.acf.originalconcorde), then offers to copy the Concorde_NGR
      plugin into X-Plane 12\Resources\plugins: answer Y.
-3. RECOMMENDED: run installer\installer_pilote_auto.bat, option 1
-   (autopilot settings the MCDU calculations rely on). Remove it with option 2.
-4. Start X-Plane, load the Concorde FXP, battery 1 or 2 ON: the MCDU powers up.
-5. User manual: open notice\NOTICE_EN.html in a web browser (first flight + every page).
+   It also sets the autopilot (10 settings, no more installer_pilote_auto.bat since V1.1).
+3. Start X-Plane, load the Concorde FXP, battery 1 or 2 ON: the MCDU powers up.
+4. User manual: open notice\NOTICE_EN.html in a web browser (first flight + every page).
 
 If Windows blocks a .bat ("Windows protected your PC"): click "More info" then "Run anyway".
 To avoid it: BEFORE extracting, right-click the zip > Properties > tick "Unblock" > OK.
 If your antivirus quarantines a file (.bat or .xpl), restore and allow it: these files are harmless.
 
-Uninstall: installer_pilote_auto.bat option 2, then installer.bat option 4.
+Uninstall: installer.bat option 4.
 Details of every change: installer\LIST_OF_CHANGES.txt
 Bug: give your X-Plane version and attach X-Plane 12\Log.txt.
 

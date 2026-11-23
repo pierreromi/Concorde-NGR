@@ -62,7 +62,7 @@
   <a href="#pages">Les pages</a>
   <a href="#sommeil">Sommeil</a>
   <a href="#surveillance-fms">Surveillance FMS</a>
-  <a href="#pilote-auto">Option pilote auto</a>
+  <a href="#pilote-auto">Pilote automatique</a>
   <a href="#ecran-cockpit">Écran du cockpit</a>
   <a href="#depannage">Dépannage</a>
   <a href="#historique">Historique</a>
@@ -82,7 +82,7 @@
     <li><strong>Vitesses de décollage.</strong> <kbd>PERF</kbd> : V1 / VR / V2, piste, masse et réglage <em>CG/TRIM</em>.</li>
     <li><strong>Moteurs.</strong> <em>SEQ ENGINEER FO &gt; START ENGINE ENGINEER</em> (deux appuis).</li>
     <li><strong>Avant le décollage : engager GERE.</strong> Sur le <kbd>ND</kbd>, touchez <em>GERE</em>. Il ne fait rien tant que le pilote automatique n'est pas engagé. <strong>Le décollage se fait à la main.</strong></li>
-    <li><strong>Après le décollage : engager le pilote automatique.</strong> Dès que l'AP est engagé, GERE prend la main sur la vitesse et la V/S et suit le profil jusqu'à la croisière. Avec l'option <em>REHEAT AUTO</em>, la réchauffe est allumée entre M1,0 et M1,7.</li>
+    <li><strong>Après le décollage : engager le pilote automatique.</strong> Dès que l'AP est engagé, GERE prend la main sur la vitesse et la V/S et suit le profil jusqu'à la croisière. Avec l'option <em>REHEAT AUTO</em>, la réchauffe est allumée entre M1,0 et M1,7. Sous le FL100, la cible est <strong>250 kt dès le décollage</strong>. En supersonique, GERE accélère <strong>collé à la VMO</strong> comme Air France : plein gaz, c'est la montée qui tient la vitesse, jusqu'à M1,7. Au toucher, GERE <strong>débraye les auto-manettes</strong> (message <code>AT DEBRAYEE (TOUCHER)</code>).</li>
     <li><strong>En route.</strong> Page <kbd>VOL</kbd> (profil, relief, météo) et <kbd>FUEL PRED</kbd> (carburant restant à l'arrivée). GERE gère aussi la descente.</li>
     <li><strong>Approche et parking.</strong> En option, <em>ILS AUTO</em> sur le ND règle tout seul la route du localizer dès que l'ILS est reçu : l'approche se fait alors sur l'ILS seul. Au parking : <em>OFF ENGINE ENGINEER</em>, puis <em>OFF PLANE COPILOT</em>.</li>
   </ol>
@@ -108,11 +108,10 @@
         <tr><td>5</td><td>Quitter</td></tr>
       </table>
       Il ajoute les profils d'aile, la tablette et l'écran du MCDU dans le cockpit, et sauvegarde l'original (<code>CONCORDE_FXP.acf.originalconcorde</code>). Il propose ensuite de copier le plugin <code>Concorde_NGR</code> dans <code>X-Plane 12\Resources\plugins</code> : répondez <strong>O</strong>.</li>
-    <li><strong>Conseillé :</strong> lancer <code>installer\installer_pilote_auto.bat</code>, choix <strong>1</strong> : réglages du pilote automatique sur lesquels s'appuient les calculs du MCDU (voir <a href="#pilote-auto">Option pilote auto</a>).</li>
     <li><strong>Démarrer X-Plane</strong>, charger le Concorde FXP, batterie 1 ou 2 sur ON : le MCDU s'allume.</li>
   </ol>
   <h3>Désinstaller</h3>
-  <p><code>installer_pilote_auto.bat</code> choix 2, puis <code>installer.bat</code> choix 4. L'avion revient à l'identique de l'original. Détail de chaque modification : <code>installer\LISTE_DES_MODIFICATIONS.txt</code>.</p>
+  <p><code>installer.bat</code> choix 4. L'avion revient à l'identique de l'original. Détail de chaque modification : <code>installer\LISTE_DES_MODIFICATIONS.txt</code>.</p>
   <h3>Vérifier que ça marche</h3>
   <p>Dans <code>X-Plane 12\Log.txt</code>, cherchez <code>Loaded Concorde_NGR.xpl</code> et <code>libcef.dll pret</code>.</p>
 </section>
@@ -173,18 +172,18 @@
   <div class="page">
     <table>
       <tr><th>Touche</th><th>Ligne</th><th>Rôle</th></tr>
-      <tr><td>L1</td><td>SPD KT/MACH</td><td>Vitesse ou Mach de croisière : <code>350/</code>, <code>/0.93</code>, <code>350/0.93</code>, <code>M2.02</code>. <kbd>CLR</kbd> remet la valeur par défaut.</td></tr>
+      <tr><td>L1</td><td>SPD KT/MACH</td><td>Vitesse ou Mach de croisière : <code>350/</code>, <code>/0.93</code>, <code>350/0.93</code>, <code>M2.02</code>. <kbd>CLR</kbd> efface : l'avion vole alors au Mach du <strong>COST INDEX</strong>. Une vitesse saisie ici est toujours prioritaire sur le CI.</td></tr>
       <tr><td>L2</td><td>&lt;SIMBRIEF</td><td>Ouvre la page SIMBRIEF.</td></tr>
       <tr><td>L3</td><td>&lt;FICHIERS .FMS</td><td>Liste des plans <code>.fms</code> de X-Plane.</td></tr>
-      <tr><td>L4</td><td>&lt;DEPARTURE</td><td>Piste et SID de départ.</td></tr>
-      <tr><td>L5</td><td>&lt;FMS X-PLANE &gt; MCDU</td><td>Reprend le plan déjà entré dans le FMS X-Plane et ouvre F-PLN.</td></tr>
-      <tr><td>L6</td><td>COST INDEX</td><td>10 à 200. <span class="muted">Réservé : son effet complet arrive dans une prochaine mise à jour.</span></td></tr>
+      <tr><td>L4</td><td>COST INDEX</td><td><code>0</code> à <code>200</code>, <strong>100 = vol optimal : le plus vite que permet la température au nez</strong> (125 °C, 2 °C sous la TMO de 127 °C), selon l'air réel : environ M2,05 en atmosphère standard, M2,14 à −65 °C, jusqu'à M2,30 en air très froid. CI 200 = jusqu'à 127 °C ; plus bas = plus lent, jusqu'à M1,80 (CI 0). Affiche le Mach obtenu. <kbd>CLR</kbd> = 100. Touche vide = page <a href="#p-modecrz">MODE CROISIÈRE</a>.</td></tr>
+      <tr><td>L5</td><td>MODE CRZ</td><td>Mode de croisière : <strong>ASCENDANTE</strong> ou <strong>PALIER</strong>. La touche ouvre la page <a href="#p-modecrz">MODE CROISIÈRE</a>.</td></tr>
+      <tr><td>L6</td><td>&lt;DEPARTURE</td><td>Piste et SID de départ.</td></tr>
       <tr><td>R1</td><td>FROM/TO</td><td>Départ / arrivée du plan (vert si chargé, orange si vide).</td></tr>
-      <tr><td>R2</td><td>CRZ FL</td><td>Niveau de croisière, <code>FL100</code> à <code>FL650</code> (ex. <code>FL580</code>).</td></tr>
+      <tr><td>R2</td><td>CRZ FL</td><td>Niveau de croisière, <code>FL100</code> à <code>FL650</code> (ex. <code>FL580</code>). Le sélecteur ALT du cockpit prend la même valeur.</td></tr>
       <tr><td>R3</td><td>FMS LOAD&gt;</td><td>Chargement passagers / carburant pour un plan <code>.fms</code>.</td></tr>
-      <tr><td>R4</td><td>WIND&gt;</td><td>Vents du vol (voir ci-dessous). Au-dessus : <code>FMS EN LIGNE</code> / <code>HORS LIGNE</code>.</td></tr>
+      <tr><td>R4</td><td>WIND&gt;</td><td>Vents du vol (voir ci-dessous).</td></tr>
       <tr><td>R5</td><td>ARRIVAL&gt;</td><td>Approche, transition et STAR.</td></tr>
-      <tr><td>R6</td><td>OPTI CRUISE ALT</td><td>Niveau conseillé (magenta). La touche ouvre le détail : masse, écart ISA, vent, meilleur Mach/FL <strong>subsonique</strong> et <strong>supersonique</strong>, distance par tonne et carburant à l'arrivée. <code>*</code> = valeur estimée.</td></tr>
+      <tr><td>R6</td><td>OPTI CRUISE ALT</td><td>Niveau conseillé (magenta). La touche ouvre le détail : masse, écart ISA, vent, meilleur Mach/FL <strong>subsonique</strong> et <strong>supersonique</strong>, distance par tonne et carburant à l'arrivée. Le niveau supersonique vient du <strong>tableau Air France</strong> de croisière ascendante (masse × écart ISA). <code>*</code> = valeur estimée (au sol ou sous 25 000 ft, l'ISA standard est supposée).</td></tr>
     </table>
     <figure><img src="images/capture_init.png" alt="Page INIT"><figcaption>INIT 1/2. <kbd>▼</kbd> mène à OPTIONS.</figcaption></figure>
   </div>
@@ -199,13 +198,13 @@
       <tr><td>L1</td><td>PILOT ID</td><td>Votre identifiant SimBrief (chiffres seulement). Il est mémorisé.</td></tr>
       <tr><td>R1</td><td>STATUT</td><td><code>OK</code>, <code>ATTENTE</code>, <code>ERREUR</code>, <code>RESEAU</code> (pas d'internet).</td></tr>
       <tr><td>R2</td><td>RESET F-PLN&gt;</td><td>Vide le plan du MCDU et le FMS X-Plane. <strong>Deux appuis en 5 s</strong> (le premier arme, en orange).</td></tr>
-      <tr><td>—</td><td>BLOCK NGB/SB</td><td>Carburant calculé par le NGR / carburant SimBrief (information).</td></tr>
+      <tr><td>—</td><td>BLOCK NGB/SB</td><td>Carburant calculé par le NGR / carburant SimBrief (information). Si le calcul dépasse la <strong>capacité (95 t)</strong> : titre orange <code>CARBU&gt;CAPACITE</code> (ou <code>CARBU INSUFFISANT</code> si la réserve ne suffit plus) et valeur <code>95.0 RES-x.x</code> = réserve manquante.</td></tr>
       <tr><td>—</td><td>MACH/FL</td><td>Mach et niveau du calcul NGR (orange si le vol reste subsonique).</td></tr>
       <tr><td>—</td><td>ZFW/TOW · PAX/DIST</td><td>Masses, passagers, distance.</td></tr>
       <tr><td>L5</td><td>&lt;WIND REQUEST</td><td>Charge les vents SimBrief.</td></tr>
       <tr><td>R5</td><td>INSERT F-PLN&gt;</td><td>Insère la route. <strong>SID et STAR ne sont pas insérées</strong> : choisissez-les ensuite avec DEPARTURE / ARRIVAL.</td></tr>
       <tr><td>L6</td><td>&lt;INIT REQUEST</td><td>Récupère votre dernier plan SimBrief.</td></tr>
-      <tr><td>R6</td><td>LOAD FUEL/PAX&gt;</td><td>Charge passagers et fret (SimBrief) et le <strong>carburant calculé par le NGR</strong> (SimBrief seulement si le calcul est impossible). Suivi 20 s : <code>CHARGE</code> (vert) ou <code>A VERIFIER</code> (orange).</td></tr>
+      <tr><td>R6</td><td>LOAD FUEL/PAX&gt;</td><td>Charge passagers et fret (SimBrief) et le <strong>carburant calculé par le NGR</strong> (SimBrief seulement si le calcul est impossible). Suivi 20 s : <code>CHARGE</code> (vert) ou <code>A VERIFIER</code> (orange). Au-delà de 95 t, 95 t sont chargées et le message orange <code>CARBU &gt; CAPACITE : RESERVE -x.xT</code> s'affiche.</td></tr>
     </table>
     <figure><img src="images/capture_simbrief.png" alt="Page SIMBRIEF"><figcaption>SIMBRIEF : plan chargé, carburant NGR / SimBrief.</figcaption></figure>
   </div>
@@ -227,9 +226,9 @@
       <tr><td>L1</td><td>PAX</td><td>0 à 100.</td></tr>
       <tr><td>R1</td><td>CARGO</td><td>0 à 4,3 t.</td></tr>
       <tr><td>—</td><td>ZFW/TOW · DIST/WIND</td><td>Masses (orange si trop lourd), distance et vent de face (HD) ou arrière (TL).</td></tr>
-      <tr><td>—</td><td>TRIP/RESERVE · MACH/FL</td><td>Carburant du trajet, réserve, Mach/FL du calcul.</td></tr>
-      <tr><td>—</td><td>COMPUTED FUEL</td><td>Carburant calculé par le NGR.</td></tr>
-      <tr><td>L5</td><td>FUEL TO LOAD</td><td>Par défaut le calcul ; vous pouvez entrer 1 à 95 t. <kbd>CLR</kbd> revient au calcul.</td></tr>
+      <tr><td>—</td><td>TRIP/RESERVE · MACH/FL</td><td>Carburant du trajet, réserve, Mach/FL du calcul. Réserves Air France (classeur TU2B) : dégagement 6,0 t, attente 30 min 6,4 t, réserve de route 5 %, roulage 1 t.</td></tr>
+      <tr><td>—</td><td>COMPUTED FUEL</td><td>Carburant calculé par le NGR. Au-delà de 95 t : même alerte orange que SIMBRIEF.</td></tr>
+      <tr><td>L5</td><td>FUEL TO LOAD</td><td>Par défaut le calcul ; vous pouvez entrer 1 à 95 t. <kbd>CLR</kbd> revient au calcul. Le chargement ne dépasse jamais 95 t.</td></tr>
       <tr><td>R4</td><td>FUEL ONLY&gt;</td><td>Charge seulement le carburant.</td></tr>
       <tr><td>R5</td><td>WIND REQUEST&gt;</td><td>Redemande les vents.</td></tr>
       <tr><td>L6</td><td>&lt;F-PLN</td><td>Ouvre le plan de vol.</td></tr>
@@ -322,11 +321,42 @@
     <tr><th>Touche</th><th>Ligne</th><th>Rôle</th></tr>
     <tr><td>L1</td><td>OPTI MACH CRZ</td><td>Mach optimal. Saisir <code>FL560</code> change le niveau.</td></tr>
     <tr><td>R1</td><td>OPTI CRUISE ALT</td><td>Niveau optimal (magenta). Touche vide = adopter ce niveau ; <code>FL560</code> = imposer.</td></tr>
-    <tr><td>R2</td><td>DIST</td><td>Distance restante ; la touche ouvre le détail OPTI CRUISE ALT.</td></tr>
+    <tr><td>R2</td><td>DIST</td><td>Distance restante ; la touche ouvre le détail OPTI CRUISE ALT (dont la touche R3 <em>MODE CRZ</em> ouvre la page MODE CROISIÈRE).</td></tr>
     <tr><td>—</td><td>FOB/GW · EFOB/RES</td><td>Carburant, masse ; carburant à l'arrivée / réserve.</td></tr>
     <tr><td>—</td><td>ACT FF/AUTON · TRIP EST · MOY FF/TEMPS</td><td>Débit actuel et autonomie, trajet estimé, débit moyen et temps de vol.</td></tr>
   </table>
   <p><strong>APPR (approche)</strong> : VAPP (avec correction de vent), VLS, masse à l'atterrissage (orange au-dessus de la MLW), destination et approche, nez 12,5° / visière basse, assiette ~10° en approche et ~12° au toucher, trim carburant LANDING, rappels 60 ft THR IDLE et REVERSE au toucher.</p>
+  <h3 id="p-modecrz">MODE CROISIÈRE</h3>
+  <p>Accès : <em>INIT</em> touche L5 (ou L4 vide), ou <em>PERF CRZ &gt; OPTI CRUISE ALT</em> touche R3. Compare, du point actuel jusqu'à la descente (montée restante et vent compris), le temps de vol, le carburant et le carburant à l'arrivée (EFOB, orange sous les réserves) :</p>
+  <table>
+    <tr><th>Touche</th><th>Ligne</th><th>Rôle</th></tr>
+    <tr><td>L2</td><td>&lt;ASCENDANTE TU2B</td><td>Croisière ascendante à la vitesse optimale (M2, ou moins si l'air est chaud ou l'avion lourd). Valeurs tirées du <strong>tableau réel Air France</strong> (classeur TU2B, 11.35.20). Le niveau du plan monte tout seul de 10 en 10 au fil de l'allègement ; le profil vertical et le T/D suivent.</td></tr>
+    <tr><td>L3</td><td>&lt;PALIER</td><td>Reste au niveau du plan (imposé par le contrôle par exemple) : la montée automatique est coupée. <code>*</code> = valeur estimée.</td></tr>
+    <tr><td>—</td><td>ECART PALIER/ASC</td><td>Carburant et minutes de plus (ou de moins) en palier.</td></tr>
+    <tr><td>L5</td><td>COST INDEX</td><td>CI <code>0</code>–<code>200</code> et Mach obtenu (comme INIT L4).</td></tr>
+    <tr><td>R5</td><td>ETA / HEURE ARR</td><td>Heure d'arrivée avec ce CI (orange si l'EFOB passe sous les réserves). Saisir une heure voulue, ex. <code>1745</code> : le MCDU choisit le <strong>CI le plus bas</strong> qui arrive à l'heure. Impossible même à CI 200 = message orange.</td></tr>
+    <tr><td>L6 / R6</td><td>&lt;OPTI · ECART CI/100</td><td>Retour au détail OPTI CRUISE ALT · minutes et tonnes de plus ou de moins que CI 100.</td></tr>
+  </table>
+  <p>Le mode affiché est toujours l'état réel : saisir un niveau à la main sur PERF CRZ passe en PALIER ; touche vide sur OPTI CRUISE ALT repasse en ASCENDANTE.</p>
+  <p>Le meilleur Mach/niveau subsonique (survol des terres) reste affiché sur OPTI CRUISE ALT.</p>
+  <p id="p-altsel"><strong>Sélecteur ALT = autorisation du contrôle</strong> (comme sur l'A320). Le profil géré ne dépasse jamais le sélecteur. Le MCDU ne l'écrit que dans deux cas : un niveau saisi dans le MCDU (INIT CRZ FL, PERF CRZ), et le <strong>COPILOTE ALT</strong> ci-dessous.</p>
+  <p id="p-copilote"><strong>COPILOTE ALT</strong> (OPTIONS &gt; MODE GERE, ON par défaut) : comme un copilote, le MCDU <strong>affiche lui-même</strong> au sélecteur la limite de chaque étape, <strong>une seule fois</strong> par étape (jamais en boucle), avec le message <code>COPILOTE : ALT 6000 (CSTR xxx)</code>. Vous la voyez au sélecteur ; si vous le tournez, c'est <strong>votre clairance</strong> et le copilote n'y touche plus jusqu'à la phase suivante (montée, croisière, descente).</p>
+  <table>
+    <tr><th>Étape</th><th>Le copilote affiche</th></tr>
+    <tr><td>Montée (après le décollage, AP engagé)</td><td>La prochaine contrainte « au plus » du <strong>SID</strong> (ex. 6000 au départ de Londres) ; une fois le point passé, la suivante ; sinon le <strong>CRZ FL</strong> (seulement si le sélecteur est plus bas).</td></tr>
+    <tr><td>Croisière ASCENDANTE</td><td><strong>FL600</strong>, plafond de la montée de croisière (seulement si le sélecteur est plus bas).</td></tr>
+    <tr><td>Descente (TOD)</td><td>La prochaine contrainte « au moins » de la STAR ou de l'approche ; une fois le point passé, la suivante ; puis l'altitude du premier point d'approche.</td></tr>
+  </table>
+  <p><strong>Contrainte du SID levée par le sélecteur</strong> : en montée, si vous tournez le sélecteur <strong>au-dessus</strong> d'une contrainte « au plus » du SID (−, @ ou entre deux), elle est effacée du F-PLN (message <code>CSTR SID LEVEE (ALT SEL)</code>) et la montée reprend : c'est la clairance du contrôle. Conseil : affichez le <strong>CRZ FL</strong> (un ALT plus haut que le CRZ FL devient le CRZ FL). Une valeur réglée au sol ne lève rien. Les contraintes STAR, approche et « au moins » ne sont jamais levées ainsi (touche droite du point + <code>CLR</code> sur la page F-PLN).</p>
+  <p>Le sélecteur fixe ensuite les limites :</p>
+  <ul>
+    <li><strong>Montée</strong> : ALT sous le CRZ FL (ex. « restez FL250 ») = palier à cet ALT, message <code>ALT PILOTE FL250 &lt; CRZ FL…</code>. Remontez l'ALT pour reprendre la montée.</li>
+    <li><strong>Croisière</strong> : un nouvel ALT devient le CRZ FL, mode PALIER. En ASCENDANTE, un ALT <strong>plus haut</strong> sert de plafond : affichez par ex. FL600, l'avion monte seul de 10 en 10 jusqu'à ce niveau au plus. Sinon, message <code>MONTEE CROISIERE : MONTER ALT SEL</code>.</li>
+    <li><strong>Descente</strong> : l'avion ne descend pas sous l'ALT affiché.</li>
+  </ul>
+  <p><strong>INIT 2/2</strong> (flèches haut / bas depuis INIT) : <code>&lt;FMS X-PLANE &gt; MCDU</code> (reprend le plan du FMS X-Plane), état <code>FMS EN LIGNE</code> / <code>HORS LIGNE</code>, puis <code>OPTIONS RELIEF&gt;</code>.</p>
+  <p><strong>Consommation supersonique.</strong> Au-dessus de Mach 1, le débit carburant est calculé depuis la <strong>poussée réelle</strong> et la consommation spécifique de l'Olympus 593, corrigée de la température. Il est recalé sur les tableaux Air France et visible aux débitmètres (rien de caché). FUEL PRED, PROG et OPTI utilisent le même calcul.</p>
+  <p><strong>Vitesse maximale : la température au nez.</strong> Comme sur le vrai Concorde, la limite est la <strong>TMO de 127 °C</strong> (classeur TU2B), calculée avec l'air extérieur réel : en air froid on peut aller plus vite que M2. L'aiguille de Mach maximal du machmètre est placée à M2,40 et la <strong>température totale</strong> affichée au cockpit est celle calculée par le NGR (celle du Colimata ne dépendait que du Mach). Alarme du MCDU : orange <code>T NEZ PROCHE TMO</code> à 126,5 °C, rouge <code>TMO DEPASSEE : REDUIRE MACH</code> à 127 °C. La VMO reste celle du Colimata (535 kt en haute altitude). Au-dessus de M2,03, si le Colimata coupe sa poussée (son ancien plafond vers M2,02-2,20), le NGR la continue. N'appuyez pas sur <em>AP MAX CRUISE</em> (il plafonne le Colimata à M2,02) : la checklist CRUISE demande <code>AP MAX CRUISE.....OFF</code>.</p>
 <!-- FIN: PAGE_PERF -->
 
 <!-- SECTION: PAGE_PROG -->
@@ -413,6 +443,7 @@
         <tr><td>ARC / ROSE / PLAN</td><td>Change le mode d'affichage. En PLAN, <code>◄ PT</code> / <code>PT ►</code> passent d'un point du plan à l'autre.</td></tr>
         <tr><td>RNG− / RNG+</td><td>Portée (aussi à la molette de la souris).</td></tr>
         <tr><td>CSTR · TFC · VOR1 · VOR2 · ADF · ILS</td><td>Affiche les contraintes, le trafic, les aiguilles VOR/ADF, la rose ILS.</td></tr>
+        <tr><td>WPT · VOR.D · NDB · ARPT</td><td>Comme sur Airbus : points (portée 40 NM ou moins), VOR / VOR-DME / DME, NDB, aéroports autour de l'avion (magenta). <strong>ARPT</strong> ne montre que les terrains où le Concorde peut se poser <strong>à sa masse actuelle</strong> (nos performances : 2 438 m à 111 t au niveau de la mer) ; en <strong>gris</strong> = posé d'urgence seulement (piste ≥ 2 500 m).</td></tr>
         <tr><td>DIR TO · SURV · VOL</td><td>Raccourcis vers DIR TO, la page transpondeur/TCAS et la page VOL.</td></tr>
       </table>
       <p><strong>Au milieu :</strong> les <strong>alarmes</strong> (ALARM, en rouge/orange) et la <strong>checklist</strong> de la phase (<code>◄</code> <code>▶</code> pour changer de liste, <code>✔</code> pour valider ; les lignes se cochent seules quand l'avion le confirme).</p>
@@ -424,7 +455,7 @@
         <tr><td>LAND</td><td>Atterrissage automatique.</td></tr>
         <tr><td>ILS AUTO</td><td>Option : règle tout seul la route du localizer dès que l'ILS est reçu ; l'approche se fait alors sur l'ILS seul.</td></tr>
         <tr><td>WX</td><td>Affiche le radar météo du cockpit derrière le ND (portée = sélecteur du radar).</td></tr>
-        <tr><td><strong>GERE</strong></td><td>Mode géré : vitesse + V/S selon le profil, de la montée à la descente. À engager <strong>avant le décollage</strong> : il agit dès que l'AP est engagé (au-dessus de 1 000 ft sol). Le texte à droite donne la cible (SPD, ALT, V/S, segment).</td></tr>
+        <tr><td><strong>GERE</strong></td><td>Mode géré : vitesse + V/S selon le profil, de la montée à la descente. À engager <strong>avant le décollage</strong> : il agit dès que l'AP est engagé (au-dessus de 1 000 ft sol). Le texte à droite donne la cible (SPD, ALT, V/S, segment). Sous le FL100 : 250 kt (aussi en remise de gaz). Au toucher : auto-manettes débrayées.</td></tr>
       </table>
     </div>
     <figure><img src="images/capture_nd.png" alt="Page ND"><figcaption>ND en ROSE ILS au sol : alarmes, checklist STARTUP, boutons AP et GERE.</figcaption></figure>
@@ -507,7 +538,7 @@
       <tr><td>OPTIONS METEO</td><td>Alerte turbulence ON / OFF et anticipation (min), seuil LEGERE / MODEREE, ceintures automatiques, météo sur la page VOL, turbulence prévue.</td></tr>
       <tr><td>PROFIL VOL</td><td>VOL MACH : <em>STANDARD</em> (supersonique seulement au-dessus de la mer) ou <em>BYPASS</em> (partout) ; MARGE COTE 15 / 25 / 40 NM ; distances terre / mer de la route.</td></tr>
       <tr><td>INGENIEUR AUTO</td><td>Trim carburant automatique selon la phase (ON / OFF).</td></tr>
-      <tr><td>MODE GERE</td><td>POUSSEE GEREE ON / OFF ; GERE (VNAV) ON / OFF ; INVERSEURS AUTO ; <strong>REHEAT AUTO</strong> : réchauffes 1 et 2 allumées à M1,0 en montée, éteintes à M1,7 ; si vous touchez vous-même aux réchauffes, l'AUTO se tait (état PILOTE) jusqu'au sol.</td></tr>
+      <tr id="p-optgere"><td>MODE GERE</td><td>POUSSEE GEREE ON / OFF ; GERE (VNAV) ON / OFF ; INVERSEURS AUTO ; <strong>REHEAT AUTO</strong> : réchauffes 1 et 2 allumées à M1,0 en montée, éteintes à M1,7 ; si vous touchez vous-même aux réchauffes, l'AUTO se tait (état PILOTE) jusqu'au sol ; <strong>COPILOTE ALT</strong> ON / OFF (voir <a href="#p-copilote">Copilote ALT</a>). ; <strong>PA SELON VITESSE</strong> ON / OFF : inclinaison maximale du pilote automatique selon le Mach (30° à basse vitesse, 25° en subsonique haut, 20° en supersonique), réglable à droite (<code>30/25/20</code>) ; un message s'affiche à chaque changement ; <strong>ROLL PREDICTION</strong> ON / OFF et <strong>PRED SUB/SUP</strong> (<code>10/17</code>) : anticipation du roulis du pilote automatique selon le Mach (voir <a href="#pilote-auto">Pilote automatique</a>).</td></tr>
       <tr><td colspan="2"><strong>OPTIONS 2/2</strong></td></tr>
       <tr><td>CREW VOICE</td><td>Voix ON / OFF, son 3D, choix des voix du copilote et de l'ingénieur, volume 0 à 100 %, écoute.</td></tr>
       <tr><td>SONS</td><td>Alertes sonores ON / OFF.</td></tr>
@@ -556,15 +587,13 @@
 
 <!-- SECTION: PILOTE_AUTO -->
 <section id="pilote-auto">
-  <h2>Option pilote automatique</h2>
-  <p><code>installer\installer_pilote_auto.bat</code> modifie <strong>10 réglages</strong> du pilote automatique dans <code>CONCORDE_FXP.acf</code> (lignes <code>acf/_ott_*</code> : réponse en vitesse, en roulis et en tangage). Ce sont les réglages sur lesquels s'appuient les calculs du MCDU (mode GERE) : <strong>conseillé</strong>. Ils sont encore en cours d'amélioration.</p>
-  <table>
-    <tr><th>Choix</th><th>Effet</th></tr>
-    <tr><td>1 Installer</td><td>Sauvegarde <code>CONCORDE_FXP.acf.avant_pa_ngr</code>, note les valeurs d'avant, écrit les 10 valeurs et les vérifie.</td></tr>
-    <tr><td>2 Désinstaller</td><td>Remet les valeurs <strong>notées chez vous</strong> (même si vous aviez un autre réglage, ex. un mod).</td></tr>
-    <tr><td>3 État</td><td>Indique si l'option est installée.</td></tr>
-  </table>
-  <p>À lancer <strong>après</strong> <code>installer.bat</code>, X-Plane fermé. Les 10 valeurs (avant / après) sont listées dans <code>installer\LISTE_DES_MODIFICATIONS.txt</code>, section 5.</p>
+  <h2>Pilote automatique</h2>
+  <p><code>installer.bat</code> modifie aussi <strong>10 réglages</strong> du pilote automatique dans <code>CONCORDE_FXP.acf</code> (lignes <code>acf/_ott_*</code> : réponse en vitesse, en roulis et en tangage). Ce sont les réglages sur lesquels s'appuient les calculs du MCDU (mode GERE). Depuis la V1.1, ils sont inclus dans l'installation (plus de <code>installer_pilote_auto.bat</code>) ; la désinstallation (choix 4) les remet comme l'original. Valeurs avant / après : <code>installer\LISTE_DES_MODIFICATIONS.txt</code>.</p>
+  <p>En vol, le plugin adapte deux réglages selon le Mach, chacun réglable <strong>ON / OFF</strong> dans <a href="#p-optgere">OPTIONS &gt; MODE GERE</a> (mémorisé, même sans afficher le MCDU) :</p>
+  <ul>
+    <li><strong>PA SELON VITESSE</strong> : inclinaison maximale 30° à basse vitesse, 25° en subsonique haut, 20° en supersonique.</li>
+    <li><strong>ROLL PREDICTION</strong> : anticipation du roulis : valeur d'origine sous M0,60, 10 à M0,95, 17 au-dessus de M1,60 (réglable <code>PRED SUB/SUP</code>). Au sol, la valeur d'origine est remise. Si vous changez vous-même la roll prediction dans la fenêtre des constantes d'X-Plane, le plugin n'y touche plus jusqu'au prochain sol. <em>Expérimental</em> : en cas de doute, mettez OFF.</li>
+  </ul>
 </section>
 <!-- FIN: PILOTE_AUTO -->
 
@@ -588,9 +617,10 @@
     <tr><th>Problème</th><th>Solution</th></tr>
     <tr><td>Windows bloque un .bat (« Windows a protégé votre ordinateur »)</td><td>Cliquez <em>Informations complémentaires</em> puis <em>Exécuter quand même</em>. Pour l'éviter : <strong>avant d'extraire</strong>, clic droit sur le zip &gt; Propriétés &gt; cocher <em>Débloquer</em> &gt; OK.</td></tr>
     <tr><td>L'antivirus met un fichier en quarantaine (.bat ou .xpl)</td><td>Restaurez-le et autorisez-le : ces fichiers ne contiennent rien de dangereux.</td></tr>
-    <tr><td>Le MCDU reste noir</td><td>Batterie 1 ou 2 sur ON. Vérifiez que l'écran du cockpit n'est pas caché (menu du plugin).</td></tr>
+    <tr><td>Le MCDU reste noir</td><td>Batterie 1 ou 2 sur ON. Vérifiez que l'écran du cockpit n'est pas caché (menu du plugin). Si le bas de l'écran affiche <code>X-PLANE HORS LIGNE (API 8086)</code> : la page ne lit pas X-Plane ; vérifiez qu'aucun pare-feu ou antivirus ne bloque X-Plane et ouvrez <code>http://127.0.0.1:8086/api/capabilities</code> dans un navigateur (X-Plane lancé) : une réponse doit s'afficher.</td></tr>
+    <tr><td>Image NGR avec <code>BATTERIE ILLISIBLE</code> et un bouton <strong>START NGR</strong></td><td>Le MCDU ne peut lire la batterie de l'avion (ni par le plugin, ni par X-Plane). Cliquez sur START NGR : le MCDU s'allume et reste allumé. Signalez-le sur Discord avec votre Log.txt.</td></tr>
     <tr><td>Le MCDU n'apparaît pas du tout</td><td>Ouvrez <code>X-Plane 12\Log.txt</code> : il doit contenir <code>Loaded Concorde_NGR.xpl</code> et <code>libcef.dll pret</code>. Sinon, relancez <code>installer.bat</code> et vérifiez que <code>Resources\plugins\Concorde_NGR\win_x64\Concorde_NGR.xpl</code> existe.</td></tr>
-    <tr><td>Page figée ou vide</td><td><em>Recharger la page MCDU</em>.</td></tr>
+    <tr><td>Page figée ou vide</td><td><em>Recharger la page MCDU</em>, <strong>au sol de préférence</strong> : en vol, le rechargement remet à zéro le guidage GERE, et X-Plane a déjà planté pendant un rechargement en vol (23/11/2026).</td></tr>
     <tr><td><code>X-PLANE HORS LIGNE</code> ou <code>FMS HORS LIGNE</code> en bas de l'écran</td><td><em>Relancer le pont 8087</em> ; si rien ne change : <em>Reinit complete (pont + page)</em>. N'installez jamais deux plugins MCDU ensemble (même port 8087).</td></tr>
     <tr><td>Le carburant n'est pas chargé (<code>A VERIFIER</code>)</td><td>Relancez <em>LOAD FUEL/PAX</em> ; vérifiez FOB sur FUEL PRED.</td></tr>
     <tr><td>L'avion ne suit pas le plan du MCDU</td><td>Le FMS X-Plane a été modifié ailleurs : voir <a href="#surveillance-fms">Surveillance FMS</a> (RENVOYER).</td></tr>
@@ -615,11 +645,12 @@
   <table>
     <tr><th>Version</th><th>Date</th><th>Changements</th></tr>
     <tr><td>V1.0</td><td>11/11/2026</td><td>Première notice complète : premier vol, toutes les pages, sommeil, surveillance FMS, option pilote auto, écran du cockpit, dépannage.</td></tr>
+    <tr><td>V1.1</td><td>20/11/2026</td><td>Réserves Air France ; alerte carburant au-delà de la capacité (95 t) ; GERE : 250 kt au décollage, accélération supersonique collée à la VMO, auto-manettes débrayées au toucher ; vitesse maximale par la température au nez (TMO 127 °C, air réel), aiguille de Mach à 2,40, alarme TMO ; COST INDEX 100 = le plus vite que permet la température ; checklist CRUISE : AP MAX CRUISE OFF. ; COST INDEX 0–200 (100 = optimum, 200 = M2,04) avec heure d'arrivée voulue ; sélecteur ALT = autorisation du contrôle ; INIT 2/2 ; MODE CROISIÈRE et niveau OPTI selon le tableau Air France ; consommation supersonique calculée depuis la poussée ; ND : boutons WPT, VOR.D, NDB, ARPT (aéroports selon la masse) ; page OPTI réorganisée, valeurs seules centrées sur leur touche, code SQWK sous l'avion (SURV). 23/11 : COPILOTE ALT (le MCDU affiche au sélecteur la limite de chaque étape) ; contrainte du SID levée en tournant le sélecteur ; niveau OPTI selon le vent de chaque niveau (FL450-600, jet stream) et le COST INDEX (100 économie, 150 compromis, 200 vitesse) ; vent pris en compte jusqu'au FL530 ; redescente de croisière vers un meilleur vent avec l'ALT SEL ; plus de chute ni de cabré en croisière et au TOD (plugin) ; PA SELON VITESSE (inclinaison max 30/25/20°) ; ROLL PREDICTION selon le Mach (expérimental, ON/OFF) ; écran noir : batterie lue par le plugin + bouton START NGR de secours ; un seul installateur (réglages du pilote automatique inclus dans installer.bat).</td></tr>
   </table>
 </section>
 <!-- FIN: HISTORIQUE -->
 
 </main>
-<footer style="max-width:980px;margin:30px auto 0;color:var(--dim);font-size:13px">Concorde NGR · notice V1.0 · <a href="NOTICE_EN.html" style="color:var(--acc)">English version</a></footer>
+<footer style="max-width:980px;margin:30px auto 0;color:var(--dim);font-size:13px">Concorde NGR · notice V1.1 · <a href="NOTICE_EN.html" style="color:var(--acc)">English version</a></footer>
 </body>
 </html>

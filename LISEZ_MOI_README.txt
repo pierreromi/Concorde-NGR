@@ -19,6 +19,10 @@ X-Plane doit etre FERME pendant l'installation.
 3. Demarrer X-Plane, charger le Concorde FXP, batterie 1 ou 2 sur ON : le MCDU s'allume.
 4. Notice d'emploi : ouvrir notice\NOTICE_FR.html dans un navigateur (premier vol + toutes les pages).
 
+MODE PURISTE (V1.2) : Plugins > Concorde_NGR > Mode puriste (sans MCDU). Vol sans MCDU (CIVA INS et
+carburant a la main) en gardant poussee, trainee et consommation NGR ; voyant TMO = master caution
+orange au-dessus de 127 degC au nez. S'applique tout de suite, memorise. Detail : notice, "Mode puriste".
+
 Si Windows bloque un .bat ("Windows a protege votre ordinateur") : cliquer "Informations
 complementaires" puis "Executer quand meme". Pour l'eviter : AVANT d'extraire, clic droit sur le zip >
 Proprietes > cocher "Debloquer" > OK. Si l'antivirus met un fichier en quarantaine (.bat ou .xpl),
@@ -53,6 +57,10 @@ X-Plane must be CLOSED during installation.
    It also sets the autopilot (10 settings, no more installer_pilote_auto.bat since V1.1).
 3. Start X-Plane, load the Concorde FXP, battery 1 or 2 ON: the MCDU powers up.
 4. User manual: open notice\NOTICE_EN.html in a web browser (first flight + every page).
+
+PURIST MODE (V1.2): Plugins > Concorde_NGR > Purist mode (no MCDU). Fly without the MCDU (CIVA INS and
+fuel by hand) while keeping NGR thrust, drag and fuel burn; TMO light = orange master caution above
+127 degC at the nose. Applies at once, remembered. Details: manual, "Purist mode".
 
 If Windows blocks a .bat ("Windows protected your PC"): click "More info" then "Run anyway".
 To avoid it: BEFORE extracting, right-click the zip > Properties > tick "Unblock" > OK.

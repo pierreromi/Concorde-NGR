@@ -52,4 +52,4 @@ voix/espeak-ng-data/lang/roa/pap|69
 voix/espeak-ng-data/lang/roa/pt|102
 voix/espeak-ng-data/lang/roa/pt-BR|116
 voix/espeak-ng-data/lang/roa/ro|28
-win_x64/Concorde_NGR.xpl|1847808
+win_x64/Concorde_NGR.xpl|1869824

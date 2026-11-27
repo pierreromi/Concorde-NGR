@@ -61,6 +61,7 @@
   <a href="#ecran">L'écran et les touches</a>
   <a href="#pages">Les pages</a>
   <a href="#sommeil">Sommeil</a>
+  <a href="#puriste">Mode puriste</a>
   <a href="#surveillance-fms">Surveillance FMS</a>
   <a href="#pilote-auto">Pilote automatique</a>
   <a href="#ecran-cockpit">Écran du cockpit</a>
@@ -567,6 +568,19 @@
   <div class="box warn"><strong>Attention :</strong> si vous cachez l'écran en vol avec GERE engagé, la gestion s'arrête. Le pilote automatique du Colimata garde ses derniers réglages.</div>
 </section>
 <!-- FIN: SOMMEIL -->
+<!-- SECTION: MODE_PURISTE -->
+<section id="puriste">
+  <h2>Mode puriste (sans MCDU)</h2>
+  <p>Pour voler comme l'équipage de l'époque : navigation <strong>CIVA INS</strong> saisie à la main (9 waypoints) et carburant géré par vous-même, <strong>sans MCDU</strong>, en gardant le Concorde NGR (poussée, traînée, consommation, finesse).</p>
+  <ul>
+    <li><strong>Activer :</strong> <em>Plugins &gt; Concorde_NGR &gt; Mode puriste (sans MCDU)</em>. La coche s'applique <strong>tout de suite</strong>, sans relancer X-Plane, et reste mémorisée pour les vols suivants. Décocher : le MCDU revient environ 5 s après.</li>
+    <li><strong>Ce qui disparaît :</strong> l'écran et la fenêtre du MCDU et toutes ses fonctions (SimBrief, F-PLN, GERE, carburant, checklists, voix, ND, JETTISON).</li>
+    <li><strong>Ce qui reste actif :</strong> poussée réelle, traînée, consommation réaliste, centrage automatique simulé, amortisseur de tangage, aiguille de Mach à 2,40, VMO, température au nez, roll prediction.</li>
+    <li><strong>Voyant TMO :</strong> le master caution orange (pilote et copilote) s'allume quand la température au nez dépasse <strong>127 °C</strong> et s'éteint sous 126 °C. Pas de voix.</li>
+  </ul>
+  <div class="box"><strong>Pilote automatique Colimata :</strong> <strong>MAX CLIMB</strong> demande AP1 ou AP2 engagé ; l'avion monte en tenant la VMO, puis passe seul en <strong>MAX CRUISE à M1,99</strong>. MAX CRUISE engagé seul n'agit pas sous M1,99. V/S, ALT HOLD ou PITCH HOLD annulent MAX CLIMB et MAX CRUISE.</div>
+</section>
+<!-- FIN: MODE_PURISTE -->
 
 <!-- SECTION: SURVEILLANCE_FMS -->
 <section id="surveillance-fms">
@@ -652,11 +666,13 @@
     <tr><th>Version</th><th>Date</th><th>Changements</th></tr>
     <tr><td>V1.0</td><td>11/11/2026</td><td>Première notice complète : premier vol, toutes les pages, sommeil, surveillance FMS, option pilote auto, écran du cockpit, dépannage.</td></tr>
     <tr><td>V1.1</td><td>20/11/2026</td><td>Réserves Air France ; alerte carburant au-delà de la capacité (95 t) ; GERE : 250 kt au décollage, accélération supersonique collée à la VMO, auto-manettes débrayées au toucher ; vitesse maximale par la température au nez (TMO 127 °C, air réel), aiguille de Mach à 2,40, alarme TMO ; COST INDEX 100 = le plus vite que permet la température ; checklist CRUISE : AP MAX CRUISE OFF. ; COST INDEX 0–200 (100 = optimum, 200 = M2,04) avec heure d'arrivée voulue ; sélecteur ALT = autorisation du contrôle ; INIT 2/2 ; MODE CROISIÈRE et niveau OPTI selon le tableau Air France ; consommation supersonique calculée depuis la poussée ; ND : boutons WPT, VOR.D, NDB, ARPT (aéroports selon la masse) ; page OPTI réorganisée, valeurs seules centrées sur leur touche, code SQWK sous l'avion (SURV). 23/11 : COPILOTE ALT (le MCDU affiche au sélecteur la limite de chaque étape) ; contrainte du SID levée en tournant le sélecteur ; niveau OPTI selon le vent de chaque niveau (FL450-600, jet stream) et le COST INDEX (100 économie, 150 compromis, 200 vitesse) ; vent pris en compte jusqu'au FL530 ; redescente de croisière vers un meilleur vent avec l'ALT SEL ; plus de chute ni de cabré en croisière et au TOD (plugin) ; PA SELON VITESSE (inclinaison max 30/25/20°) ; ROLL PREDICTION selon le Mach (expérimental, ON/OFF) ; écran noir : batterie lue par le plugin + bouton START NGR de secours ; un seul installateur (réglages du pilote automatique inclus dans installer.bat).</td></tr>
+    <tr><td>V1.11</td><td>24/11/2026</td><td>Correction : pages OPTIONS et GERE inutilisables en V1.1.</td></tr>
+    <tr><td>V1.2</td><td>27/11/2026</td><td><strong>Mode puriste (sans MCDU)</strong> dans le menu Plugins &gt; Concorde_NGR, avec voyant TMO ; MAX CLIMB du pilote automatique Colimata de nouveau fonctionnel ; menu du plugin en français ou en anglais selon la langue d'X-Plane.</td></tr>
   </table>
 </section>
 <!-- FIN: HISTORIQUE -->
 
 </main>
-<footer style="max-width:980px;margin:30px auto 0;color:var(--dim);font-size:13px">Concorde NGR · notice V1.1 · <a href="NOTICE_EN.html" style="color:var(--acc)">English version</a></footer>
+<footer style="max-width:980px;margin:30px auto 0;color:var(--dim);font-size:13px">Concorde NGR · notice V1.2 · <a href="NOTICE_EN.html" style="color:var(--acc)">English version</a></footer>
 </body>
 </html>

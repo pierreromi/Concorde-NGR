@@ -61,6 +61,7 @@
   <a href="#ecran">Screen and keys</a>
   <a href="#pages">The pages</a>
   <a href="#sommeil">Sleep</a>
+  <a href="#puriste">Purist mode</a>
   <a href="#surveillance-fms">FMS watch</a>
   <a href="#pilote-auto">Autopilot</a>
   <a href="#ecran-cockpit">Cockpit screen</a>
@@ -75,7 +76,7 @@
   <h2>Quick first flight</h2>
   <p>Ten steps, from gate to gate. Every page is explained in detail further down.</p>
   <ol class="steps">
-    <li><strong>Power up.</strong> Load the Concorde FXP and set <strong>battery 1 or 2 to ON</strong>: the MCDU switches on (splash image for 10 s). To show it in a window: <em>Plugins &gt; Concorde_NGR &gt; Afficher / masquer MCDU</em> (show / hide).</li>
+    <li><strong>Power up.</strong> Load the Concorde FXP and set <strong>battery 1 or 2 to ON</strong>: the MCDU switches on (splash image for 10 s). To show it in a window: <em>Plugins &gt; Concorde_NGR &gt; Show / hide MCDU</em>.</li>
     <li><strong>Prepare the aircraft.</strong> <kbd>DATA</kbd> &gt; <em>ENGINEER</em> &gt; <em>SEQ ENGINEER FO</em> &gt; <em>START PLANE COPILOT</em>: press <strong>twice within 5 s</strong>. The first officer and the flight engineer prepare the aircraft, then report by voice.</li>
     <li><strong>SimBrief plan.</strong> <kbd>INIT</kbd> &gt; <em>SIMBRIEF</em>: enter your SimBrief ID on L1, then <em>INIT REQUEST</em> (L6) to fetch the plan, <em>INSERT F-PLN</em> (R5) for the route, and <em>LOAD FUEL/PAX</em> (R6) for passengers, cargo and fuel. Fuel is computed by NGR: no APPLY is needed in the Colimata panel any more.<br><span class="muted">Without SimBrief: <em>INIT &gt; FMS FILES</em>, then <em>FMS LOAD</em>.</span></li>
     <li><strong>Departure and arrival.</strong> <em>INIT &gt; DEPARTURE</em> (runway, SID), then <em>INIT &gt; ARRIVAL</em> (approach, STAR) and <em>INSERT*</em>. Check <em>SPD KT/MACH</em> and <em>CRZ FL</em>; <em>OPTI CRUISE ALT</em> (magenta) gives the advised level.</li>
@@ -560,13 +561,26 @@
   <p>The MCDU <strong>sleeps</strong> when:</p>
   <ul>
     <li>batteries 1 and 2 are OFF (black screen);</li>
-    <li>the cockpit screen is hidden (<em>Plugins &gt; Concorde_NGR &gt; Afficher / masquer l'ecran du cockpit</em>, show / hide cockpit screen);</li>
+    <li>the cockpit screen is hidden (<em>Plugins &gt; Concorde_NGR &gt; Show / hide cockpit screen</em>);</li>
     <li>the loaded aircraft is not the Concorde FXP (message <code>AVION NON CONCORDE FXP · MCDU EN VEILLE</code>).</li>
   </ul>
   <p>While asleep the MCDU <strong>no longer acts on the aircraft</strong>: no managed autopilot, no managed speed, no fuel management, no JETTISON. The plugin aerodynamic module (thrust, drag, CG, consumption) <strong>stays active</strong>. Switch a battery back on or show the screen again to wake it up.</p>
   <div class="box warn"><strong>Warning:</strong> if you hide the screen in flight with GERE engaged, management stops. The Colimata autopilot keeps its last settings.</div>
 </section>
 <!-- FIN: SOMMEIL -->
+<!-- SECTION: MODE_PURISTE -->
+<section id="puriste">
+  <h2>Purist mode (no MCDU)</h2>
+  <p>Fly like the original crews: <strong>CIVA INS</strong> navigation entered by hand (9 waypoints) and fuel managed by yourself, <strong>without the MCDU</strong>, while keeping the Concorde NGR physics (thrust, drag, fuel burn, lift-to-drag).</p>
+  <ul>
+    <li><strong>Turn on:</strong> <em>Plugins &gt; Concorde_NGR &gt; Purist mode (no MCDU)</em>. The tick applies <strong>at once</strong>, no X-Plane restart, and is remembered for the next flights. Untick: the MCDU comes back about 5 s later.</li>
+    <li><strong>What goes away:</strong> the MCDU screen and window and all its functions (SimBrief, F-PLN, MANAGED mode, fuel, checklists, voices, ND, JETTISON).</li>
+    <li><strong>What stays active:</strong> real thrust, drag, realistic fuel burn, simulated automatic CG, pitch damper, Mach needle at 2.40, VMO, nose temperature, roll prediction.</li>
+    <li><strong>TMO light:</strong> the orange master caution (captain and first officer) comes on when the nose temperature exceeds <strong>127 °C</strong> and goes off below 126 °C. No voice.</li>
+  </ul>
+  <div class="box"><strong>Colimata autopilot:</strong> <strong>MAX CLIMB</strong> needs AP1 or AP2 engaged; the aircraft climbs along the VMO, then switches by itself to <strong>MAX CRUISE at M1.99</strong>. MAX CRUISE engaged alone does nothing below M1.99. V/S, ALT HOLD or PITCH HOLD cancel MAX CLIMB and MAX CRUISE.</div>
+</section>
+<!-- FIN: MODE_PURISTE -->
 
 <!-- SECTION: SURVEILLANCE_FMS -->
 <section id="surveillance-fms">
@@ -602,8 +616,8 @@
   <h2>The screen in the cockpit</h2>
   <p><code>installer.bat</code> adds the MCDU screen to the Concorde cockpit (<code>CONCORDE_FXP_cockpit.obj</code>, backup <code>.originalconcorde</code>) and installs the tablet around it. The screen is <strong>shown and clickable</strong> right in the cockpit.</p>
   <ul>
-    <li><em>Plugins &gt; Concorde_NGR &gt; Afficher / masquer l'ecran du cockpit</em> (show / hide cockpit screen): shows or hides the screen. The choice is remembered between flights. <strong>Hidden screen = MCDU asleep</strong> (see <a href="#sommeil">Sleep</a>).</li>
-    <li><em>Plugins &gt; Concorde_NGR &gt; Afficher / masquer MCDU</em> (show / hide MCDU): opens the MCDU in an X-Plane window, in addition to the cockpit screen.</li>
+    <li><em>Plugins &gt; Concorde_NGR &gt; Show / hide cockpit screen</em>: shows or hides the screen. The choice is remembered between flights. <strong>Hidden screen = MCDU asleep</strong> (see <a href="#sommeil">Sleep</a>).</li>
+    <li><em>Plugins &gt; Concorde_NGR &gt; Show / hide MCDU</em>: opens the MCDU in an X-Plane window, in addition to the cockpit screen.</li>
   </ul>
   <p class="muted">Uninstalling (<code>installer.bat</code> choice 4) restores the original cockpit.</p>
 </section>
@@ -652,11 +666,13 @@
     <tr><th>Version</th><th>Date</th><th>Changes</th></tr>
     <tr><td>V1.0</td><td>11 Nov 2026</td><td>First complete manual: first flight, every page, sleep, FMS watch, autopilot option, cockpit screen, troubleshooting.</td></tr>
     <tr><td>V1.1</td><td>20/11/2026</td><td>Air France reserves; fuel alert above capacity (95 t); MANAGED: 250 kt at take-off, supersonic acceleration along the VMO, autothrottles disconnected at touchdown; maximum speed from the nose temperature (127 °C TMO, real air), Mach needle at 2.40, TMO alarm; COST INDEX 100 = as fast as the temperature allows; CRUISE checklist: AP MAX CRUISE OFF.; COST INDEX 0–200 (100 = optimum, 200 = M2.04) with required arrival time; ALT selector = ATC clearance; INIT 2/2; CRUISE MODE and OPTI level from the Air France table; supersonic fuel burn computed from thrust; ND: WPT, VOR.D, NDB, ARPT buttons (airports by weight); OPTI page reorganised, single values centred on their key, SQWK code below the aircraft (SURV). 23/11: COPILOT ALT (the MCDU sets the limit of each step on the selector); SID constraint lifted by turning the selector; OPTI level from the wind at each level (FL450-600, jet stream) and the COST INDEX (100 economy, 150 balance, 200 speed); wind used up to FL530; cruise descent to a better wind with the ALT SEL; no more drops or pitch-ups in cruise and at TOD (plugin); AP BY SPEED (max bank 30/25/20°); ROLL PREDICTION by Mach (experimental, ON/OFF); dark screen: battery read by the plugin + START NGR fallback button; single installer (autopilot settings included in installer.bat).</td></tr>
+    <tr><td>V1.11</td><td>24 Nov 2026</td><td>Fix: OPTIONS and MANAGED pages not working in V1.1.</td></tr>
+    <tr><td>V1.2</td><td>27 Nov 2026</td><td><strong>Purist mode (no MCDU)</strong> in the Plugins &gt; Concorde_NGR menu, with a TMO light; Colimata autopilot MAX CLIMB working again; plugin menu in English or French, following the X-Plane language.</td></tr>
   </table>
 </section>
 <!-- FIN: HISTORIQUE -->
 
 </main>
-<footer style="max-width:980px;margin:30px auto 0;color:var(--dim);font-size:13px">Concorde NGR · manual V1.1 · <a href="NOTICE_FR.html" style="color:var(--acc)">Version française</a></footer>
+<footer style="max-width:980px;margin:30px auto 0;color:var(--dim);font-size:13px">Concorde NGR · manual V1.2 · <a href="NOTICE_FR.html" style="color:var(--acc)">Version française</a></footer>
 </body>
 </html>
